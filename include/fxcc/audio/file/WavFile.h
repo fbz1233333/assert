@@ -1,13 +1,15 @@
 #pragma once
 
-#include "fxcc/graph/pch.h"
-
 namespace fxcc
 {
+
     namespace graph
     {
-        struct Effect3d
+        namespace audio
         {
+            struct Wav
+            {
+            };
         };
     };
-};
+}

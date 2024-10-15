@@ -6,8 +6,9 @@ namespace fxcc
 {
     namespace graph
     {
-        struct Effect3d
+        struct Material
         {
+
         };
     };
 };

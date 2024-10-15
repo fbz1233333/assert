@@ -3,22 +3,11 @@ project(fxcc_project)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(fxcc)
+set(FXCC_BUILD_GRAPH_OPENGL3 ON)
+set(FXCC_BUILD_AUDIO_OPENAL ON)
+set(FXCC_BUILD_PHYSICS_RP3D ON)
 
-# if(UNIX)
-# set(DEP_PATH /usr/local)
-# endif()
+include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# set(CMAKE_INSTALL_INCLUDEDIR ${DEP_PATH}/include)
-# set(CMAKE_INSTALL_LIBDIR ${DEP_PATH}/lib)
-
-# install(TARGETS web
-#         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-# )
-
-# install(DIRECTORY include
-#         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-
-
-# add_subdirectory(test)
+add_subdirectory(src)

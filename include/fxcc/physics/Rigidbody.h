@@ -6,7 +6,8 @@ namespace fxcc
 {
     namespace physics
     {
-        struct Collider
+
+        struct Rigidbody
         {
         };
     };
