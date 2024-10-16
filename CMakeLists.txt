@@ -5,10 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(FetchContent)
 
+
 FetchContent_Declare(
     stb
     GIT_REPOSITORY git@gitee.com:ddaren/stb.git
     GIT_TAG master
+
 )
 
 
@@ -22,6 +24,7 @@ FetchContent_Declare(
     assimp
     GIT_REPOSITORY git@gitee.com:github-transport/assimp.git
     GIT_TAG master
+
 )
 
 
@@ -29,12 +32,14 @@ FetchContent_Declare(
     glm
     GIT_REPOSITORY git@gitee.com:ren-maolin/glm.git
     GIT_TAG master
+
 )
 
 FetchContent_Declare(
     glfw
     GIT_REPOSITORY git@gitee.com:shuitailiangyue/glfw.git
     GIT_TAG master
+
 )
 
 
@@ -60,6 +65,11 @@ endif()
 if(UNIX)
 set(FXCC_BUILD_GRAPH_GLES3 ON)
 endif()
+
+set(FXCC_BUILD_PLATFORM_GLFW ON)
+set(FXCC_BUILD_PLATFORM_WIN32 ON)
+set(FXCC_BUILD_PLATFORM_SDL ON)
+
 # set(FXCC_BUILD_AUDIO_OPENAL ON)
 # set(FXCC_BUILD_PHYSICS_RP3D ON)
 

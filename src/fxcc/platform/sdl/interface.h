@@ -2,14 +2,11 @@
 
 #include "fxcc/platform/interface.h"
 
-#include <GLFW/glfw3.h>
-
-
 namespace fxcc
 {
     namespace platform
     {
-        namespace glfw
+        namespace sdl
         {
             struct Impl;
         }

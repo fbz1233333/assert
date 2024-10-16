@@ -1,6 +1,5 @@
 #pragma once
 
-#include "fxcc/platform/App.h"
 #include "fxcc/platform/win32/interface.h"
 
 namespace fxcc
@@ -10,7 +9,7 @@ namespace fxcc
         
         template<>
         struct App<fxcc::platform::win32::Impl>
-        {}
-
+        {
+        };
     };
 };
