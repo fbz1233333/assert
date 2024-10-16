@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fxcc/graph/pch.h"
+#include "fxcc/graph/interface.h"
 
 #include <GLES3/gl3.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fxcc/platform/pch.h"
+#include "fxcc/platform/interface.h"
 
 #include <GLFW/glfw3.h>
 

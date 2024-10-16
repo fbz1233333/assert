@@ -1,6 +1,5 @@
 #include "fxcc/graph/opengl3/Shader.h"
 #include "fxcc/graph/opengl3/ShaderFile.h"
-#include "Shader.h"
 
 using namespace fxcc::graph::opengl3;
 

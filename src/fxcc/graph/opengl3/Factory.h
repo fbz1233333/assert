@@ -1,7 +1,6 @@
 #pragma once
 
-#include "fxcc/graph/opengl3/pch.h"
-#include "fxcc/graph/interface.h"
+#include "fxcc/graph/opengl3/interface.h"
 
 namespace fxcc
 {

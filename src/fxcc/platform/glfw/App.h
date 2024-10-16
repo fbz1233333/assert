@@ -1,20 +1,16 @@
 #pragma once
 
 #include "fxcc/platform/App.h"
-#include "fxcc/platform/glfw/pch.h"
-#include "fxcc/platform/AppDesc.h"
+#include "fxcc/platform/glfw/interface.h"
 
 namespace fxcc
 {
-
     namespace platform
     {
-        template <>
-        struct App<glfw::Impl>
-        {
-            App();
+        
+        template<>
+        struct App<fxcc::platform::glfw::Impl>
+        {};
 
-            void Execute();
-        };
     };
-}
+};

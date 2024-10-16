@@ -1,5 +1,5 @@
 #pragma once
-#include "fxcc/graph/gles3/pch.h"
+#include "fxcc/graph/gles3/interface.h"
 #include "fxcc/graph/RenderStates.h"
 #include "fxcc/graph/PipelineState.h"
 

@@ -62,6 +62,9 @@ namespace fxcc
 		struct PipelineState;
 
 		template<typename T>
+		struct Factory;
+
+		template<typename T>
 		struct ImEditor;
 
 

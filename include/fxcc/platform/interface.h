@@ -15,3 +15,14 @@
 #include <cstring>
 
 namespace fs = std::filesystem;
+
+
+namespace fxcc{
+    namespace platform
+    {
+
+        template<typename T>
+        struct App;
+
+    };
+};
