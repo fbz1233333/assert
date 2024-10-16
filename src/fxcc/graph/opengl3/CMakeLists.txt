@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 file(GLOB local_src *.cpp)
 file(GLOB local_headers *.h)
 
-add_library(fxcc_graph_opengl3 ${local_headers} ${local_src})
+
+add_library(fxcc_graph_opengl3 ${local_headers} ${local_src} glad.c)
 
 
 

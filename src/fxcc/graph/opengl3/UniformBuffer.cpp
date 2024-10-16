@@ -1,5 +1,6 @@
 #include "fxcc/graph/opengl3/UniformBuffer.h"
 
+using namespace fxcc::graph::opengl3;
 
 void UniformBuffer::Upload(const void *data, size_t off, size_t len) const
 {

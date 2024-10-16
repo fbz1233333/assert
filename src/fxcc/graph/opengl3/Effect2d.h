@@ -7,10 +7,10 @@ namespace fxcc
 {
     namespace graph
     {
-        template<>
-        struct Factory<opengl3::Impl>
+        template <>
+        struct Effect2d<opengl3::Impl>
         {
+            
         };
-    
     };
 };

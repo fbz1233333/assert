@@ -1,14 +1,14 @@
 #pragma once
 
-#include "fxcc/graph/opengl/pch.h"
-#include "fxcc/graph/ImEditor.h"
+#include "fxcc/graph/opengl3/pch.h"
+#include "fxcc/graph/interface.h"
 
 namespace fxcc
 {
     namespace graph
     {
         template<>
-        struct ImEditor<gles3::Impl>
+        struct ImEditor<opengl3::Impl>
         {
             void InitImGui();
 
@@ -19,5 +19,6 @@ namespace fxcc
             void DestoryImGui();
 
         };
+
     };
 };

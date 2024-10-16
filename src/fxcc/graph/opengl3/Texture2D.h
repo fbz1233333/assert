@@ -8,9 +8,10 @@ namespace fxcc
     namespace graph
     {
         template<>
-        struct Factory<opengl3::Impl>
+        struct Texture2D<opengl3::Impl>
         {
+
+            unsigned int m_Id;
         };
-    
     };
-};
+}

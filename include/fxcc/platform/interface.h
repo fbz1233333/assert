@@ -15,12 +15,3 @@
 #include <cstring>
 
 namespace fs = std::filesystem;
-
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-
-#include "assimp/scene.h"
-#include "assimp/Importer.hpp"
-#include "assimp/types.h"
-
-#include "ztclog/ztclog.h"

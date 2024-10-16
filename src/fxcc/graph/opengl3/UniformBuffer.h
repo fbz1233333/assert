@@ -7,46 +7,48 @@ namespace fxcc
 {
 	namespace graph
 	{
-
-		struct UniformBuffer :public Buffer
+		namespace opengl3
 		{
-			struct Desc
+
+			struct UniformBuffer : public Buffer
 			{
-				unsigned int dataSize;
+				struct Desc
+				{
+					unsigned int dataSize;
 
-			} m_Desc;
+				} m_Desc;
 
-			bool Init();
+				bool Init();
 
-			UniformBuffer(const Desc& desc);
-			
-			UniformBuffer(const size_t &sz);
+				UniformBuffer(const Desc &desc);
 
-			template <typename T>
-			bool CreateFrom()
-			{
-				
-				m_Desc.dataSize = sizeof(T);
-				
-				Init();
-				return true;
+				UniformBuffer(const size_t &sz);
 
-			}
+				template <typename T>
+				bool CreateFrom()
+				{
 
-			void Upload(const void *data, size_t off, size_t len) const;
-			void Upload(const void *data, size_t len) const;
+					m_Desc.dataSize = sizeof(T);
 
-			void Binding(unsigned int binding);
+					Init();
+					return true;
+				}
 
-			template <typename T>
-			void Upload(const T &t) const
-			{
-				Upload((void *)&t, sizeof(T));
-			}
-			static void UnBind()
-			{
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
-			}
+				void Upload(const void *data, size_t off, size_t len) const;
+				void Upload(const void *data, size_t len) const;
+
+				void Binding(unsigned int binding);
+
+				template <typename T>
+				void Upload(const T &t) const
+				{
+					Upload((void *)&t, sizeof(T));
+				}
+				static void UnBind()
+				{
+					glBindBuffer(GL_ARRAY_BUFFER, 0);
+				}
+			};
 		};
 	};
 };

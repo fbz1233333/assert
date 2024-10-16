@@ -4,27 +4,7 @@ project(fxcc_graph_editor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-FetchContent_Declare(
-    stb
-    GIT_REPOSITORY git@gitee.com:ddaren/stb.git
-    GIT_TAG master
-)
 
-FetchContent_Populate(stb)
-
-include_directories(${stb_SOURCE_DIR})
-
-set(CMAKE_CXX_STANDARD 17)
-
-FetchContent_Declare(
-    imgui
-    GIT_REPOSITORY git@gitee.com:hang-jingqi/imgui.git
-    GIT_TAG docking
-)
-
-FetchContent_Populate(imgui)
-include_directories(${imgui_SOURCE_DIR})
-include_directories(${imgui_SOURCE_DIR}/backends)
 
 file(GLOB local_src *.cpp)
 file(GLOB local_header *.h)
