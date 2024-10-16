@@ -4,11 +4,42 @@ project(fxcc_graph_editor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-if(FXCC_BUILD_GLES2)
+FetchContent_Declare(
+    stb
+    GIT_REPOSITORY git@gitee.com:ddaren/stb.git
+    GIT_TAG master
+)
+
+FetchContent_Populate(stb)
+
+include_directories(${stb_SOURCE_DIR})
+
+set(CMAKE_CXX_STANDARD 17)
+
+FetchContent_Declare(
+    imgui
+    GIT_REPOSITORY git@gitee.com:hang-jingqi/imgui.git
+    GIT_TAG docking
+)
+
+FetchContent_Populate(imgui)
+include_directories(${imgui_SOURCE_DIR})
+include_directories(${imgui_SOURCE_DIR}/backends)
+
+file(GLOB local_src *.cpp)
+file(GLOB local_header *.h)
+
+add_library(fxcc_graph ${local_src} ${local_header})
+
+if(FXCC_BUILD_GRAPH_GLES)
+add_subdirectory(gles)
+endif()
+
+if(FXCC_BUILD_GRAPH_GLES2)
 add_subdirectory(gles2)
 endif()
 
-if(FXCC_BUILD_GLES3)
+if(FXCC_BUILD_GRAPH_GLES3)
 add_subdirectory(gles3)
 endif()
 

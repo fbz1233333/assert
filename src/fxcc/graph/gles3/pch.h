@@ -1,20 +1,21 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <istream>
-#include <ostream>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <memory>
-#include <filesystem>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include "fxcc/graph/pch.h"
 
-namespace fs = std::filesystem;
-
-#include <GLFW/glfw3.h>
 #include <GLES3/gl3.h>
+
+#define FXCC_GRAPH_GLES3_IMPL
+
+namespace fxcc
+{
+    namespace graph
+    {
+        namespace gles3
+        {
+            struct Impl
+            {
+            };
+        };
+    };
+    using GraphImpl = graph::gles3::Impl;
+};

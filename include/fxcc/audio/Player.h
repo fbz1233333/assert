@@ -6,8 +6,9 @@ namespace fxcc
 {
     namespace audio
     {
+        template<typename Impl> 
         struct Player
         {
-         };
+        };
     };
 };

@@ -1,26 +1,16 @@
 #pragma once
 
+#include "fxcc/graph/gles3/pch.h"
 #include "fxcc/graph/Factory.h"
 
 namespace fxcc
 {
     namespace graph
     {
-        namespace gles3
+        template<>
+        struct Factory<gles3::Impl>
         {
-            struct Factory:public fxcc::graph::Factory
-            {
-
-                std::shared_ptr<Mesh> CreateMesh(const Mesh::Desc &desc) override
-                {
-                    return 0;
-                }
-
-                std::shared_ptr<Scene> CreateScene(const std::string &path) override
-                {
-                    return 0;
-                }
-            };
-        }
+        };
+    
     };
 };

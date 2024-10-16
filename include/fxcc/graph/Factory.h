@@ -7,16 +7,15 @@
 #include "fxcc/graph/TextureCube.h"
 #include "fxcc/graph/Texture2DArray.h"
 #include "fxcc/graph/Effect2d.h"
+#include "fxcc/graph/Impl.h"
 
 namespace fxcc
 {
     namespace graph
     {
+        template<typename Impl>
         struct Factory
         {
-            virtual std::shared_ptr<Mesh> CreateMesh(const Mesh::Desc& desc);
-
-            virtual std::shared_ptr<Scene> CreateScene(const std::string &path);
         };
     };
 };

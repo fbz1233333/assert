@@ -6,24 +6,11 @@ namespace fxcc
 {
     namespace graph
     {
+        template<typename Impl>
         struct Mesh
         {
-            struct Desc
-            {
-                
 
-            } m_Desc;
-            
-            virtual void DrawElements() = 0;
-
-            virtual void Init() = 0;
-
-            virtual void Release() = 0;
-
-            virtual ~Mesh()
-            {
-                Release();
-            }
+       
         };
     };
 };

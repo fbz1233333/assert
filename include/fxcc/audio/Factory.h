@@ -8,11 +8,9 @@ namespace fxcc
 {
     namespace audio
     {
+        template <typename Impl>
         struct Factory
         {
-            virtual std::shared_ptr<Player> CreatePlayer() = 0;
-
-            virtual std::shared_ptr<Source> CreateSource() = 0;
 
         };
     };

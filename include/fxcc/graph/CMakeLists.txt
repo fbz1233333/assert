@@ -4,8 +4,6 @@ project(fxcc_graph)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(file)
-
 file(GLOB local_src *.cpp)
 file(GLOB local_header *.h)
 

@@ -1,15 +1,17 @@
 #pragma once
 
+#include "fxcc/graph/gles3/pch.h"
+
 namespace fxcc
 {
-
     namespace graph
     {
-        namespace audio
+        namespace gles
         {
-            struct Wav
+            struct Impl
             {
+
             };
         };
     };
-}
+};
