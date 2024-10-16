@@ -10,20 +10,7 @@ namespace fxcc
         struct RenderTarget<gles3::Impl>
         {
 
-            bool Create()
-            {
 
-                return true;
-            };
-            void Begin() {
-
-            };
-            void End() {
-            };
-
-            virtual ~RenderTarget() {
-
-            };
         };
     };
 };

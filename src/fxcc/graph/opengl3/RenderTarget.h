@@ -10,20 +10,15 @@ namespace fxcc
         struct RenderTarget<opengl3::Impl>
         {
 
-            bool Create()
-            {
+            bool Create();
 
-                return true;
-            };
-            void Begin() {
+            void Begin();
 
-            };
-            void End() {
-            };
+            void End();
 
-            virtual ~RenderTarget() {
+            void Release();
 
-            };
+            virtual ~RenderTarget();
         };
     };
 };
