@@ -9,7 +9,9 @@ namespace fxcc
         
         template<>
         struct App<fxcc::platform::sdl::Impl>
-        {};
+        {
+            
+        };
 
     };
 };
