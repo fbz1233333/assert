@@ -35,11 +35,70 @@ namespace fxcc
             static std::unordered_map<GLFWwindow *, App<glfw::Impl> *> m_Apps;
             struct CallBacks
             {
-                static void glfw_error_callback(int no, const char *error) {
+                void glfw_error_callback(int error, const char *description)
+                {
+                    ztclog::info("Glfw Error %d: %s\n", error, description);
+                }
+                void glfw_key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
+                {
+            
+                }
+                void glfw_cursorpos_callback(GLFWwindow *window, double x, double y)
+                {
+            
+                }
+                void glfw_mouse_callback(GLFWwindow *window, int key, int action, int mode)
+                {
+         
+                }
+                void glfw_frame_callback(GLFWwindow *window, int width, int height)
+                {
+     
+                }
+                void glfw_monitor_callback(GLFWmonitor *window, int ev)
+                {
+     }
+                void glfw_window_focus_callback(GLFWwindow *window, int e)
+                {
+         
+                }
+                void glfw_close_callback(GLFWwindow *window)
+                {
+           
+                }
+                void glfw_joystick_callback(int joy, int event)
+                {
+          
+                }
+                void glfw_window_iconify_callback(GLFWwindow *window, int ev)
+                {
+         
+                }
+                void glfw_scroll_callback(GLFWwindow *window, double x, double y)
+                {
+          
+                }
+                void glfw_refresh_callback(GLFWwindow *window)
+                {
+                    if (g_app)
+                    {
+                        g_app->OnRefresh();
+                    }
+                }
+                void glfw_pos_callback(GLFWwindow *, int x, int y)
+                {
+                    if (g_app)
+                    {
+                        g_app->OnWindowPos(x, y);
+                    }
+                }
 
-                };
-                static void glfw_window_size(GLFWwindow *window, int w, int h) {
-                    auto app = m_Apps[window];
+                void glfw_drop_callback(GLFWwindow *window, int count, const char **paths)
+                {
+                    if (g_app)
+                    {
+                        g_app->OnDrop(count, paths);
+                    }
                 };
             };
         };

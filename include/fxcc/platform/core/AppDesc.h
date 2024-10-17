@@ -14,7 +14,7 @@ namespace fxcc
                 glm::ivec2 m_Size;
                 std::string m_Title;
                 bool m_Interval;
-                
+                // what should the to do
             };
         };
     };
