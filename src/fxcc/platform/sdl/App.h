@@ -1,6 +1,5 @@
 #pragma once
 
-#include "fxcc/platform/App.h"
 #include "fxcc/platform/sdl/interface.h"
 
 namespace fxcc
