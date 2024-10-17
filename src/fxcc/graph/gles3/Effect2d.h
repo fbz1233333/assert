@@ -1,16 +1,38 @@
 #pragma once
 
-#include "fxcc/graph/gles3/interface.h"
-#include "fxcc/graph/Effect2d.h"
+#include "fxcc/graph/UniformBuffer.h"
+#include "fxcc/graph/Shader.h"
+#include "fxcc/graph/Mesh.h"
+#include "ogl/math/Transform.h"
+#include "ogl/math/Geometry.h"
+#include "fxcc/graph/EffectBase.h"
 
-namespace fxcc
+#include "mustache.hpp"
+
+
+namespace Ogl
 {
-    namespace graph
-    {
-        template <>
-        struct Effect2d<gles3::Impl>
-        {
-            
-        };
-    };
+	namespace Gut
+	{
+		struct Effect2d :public Ogl::Gut::EffectBase
+		{
+
+			std::shared_ptr<Ogl::Gut::Shader>  m_Shader;
+			std::shared_ptr<Ogl::Gut::Mesh> m_QuadMesh, m_2DShowMesh;
+
+			Effect2d(const std::string& fCode);
+			std::string m_FragMain;
+
+			void Begin();
+
+			void RenderMesh(const Ogl::Gut::Mesh* mesh);
+			void DebugQuad();
+			void Debug2DShowMesh();
+			void End();
+
+			std::string GetFragCode();
+			static std::string GetVertCode();
+			static std::string GetFragTemp();
+		};
+	};
 };

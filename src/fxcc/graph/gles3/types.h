@@ -1,0 +1,18 @@
+#pragma once
+
+#include "fxcc/graph/Shader.h"
+#include "fxcc/graph/InputSystem.h"
+#include "fxcc/graph/RenderBuffer.h"
+#include "fxcc/graph/FrameBuffer.h"
+#include "fxcc/graph/UniformBuffer.h"
+#include "fxcc/graph/Texture.h"
+#include "fxcc/graph/GLFWTimer.h"
+#include "fxcc/graph/Image.h"
+#include "fxcc/graph/App.h"
+#include "fxcc/graph/RenderStatus.h"
+#include "fxcc/graph/Texture2D.h"
+#include "fxcc/graph/TextureCube.h"
+#include "fxcc/graph/Effect3d.h"
+#include "fxcc/graph/Effect2d.h"
+#include "fxcc/graph/Mesh.h"
+#include "fxcc/graph/RenderTarget.h"
