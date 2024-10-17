@@ -9,4 +9,4 @@ file(GLOB local_header *.h)
 
 add_library(fxcc_platform_glfw ${local_src} ${local_header})
 
-target_link_libraries(fxcc_platform_glfw PRIVATE glfw3)
+target_link_libraries(fxcc_platform_glfw PRIVATE glfw3 pthread dl)

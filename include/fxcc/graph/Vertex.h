@@ -7,7 +7,6 @@ namespace fxcc
 {
 	namespace graph
 	{
-
 		struct VertexFixed {
 
 			glm::vec3 pos;
@@ -16,13 +15,11 @@ namespace fxcc
 			glm::vec3 tangent;
 			glm::vec3 bigTangent;
 
-
 			static VertexType Type()
 			{
 				return VertexType::_vertex_fixed_;
 			}
 
-			static Ogl::Gut::InputLayout Layouts();
 
 		};
 
@@ -37,7 +34,7 @@ namespace fxcc
 			glm::ivec4 bones2;
 			glm::vec4 weights2;
 
-			void Load(const Ogl::Gut::VertexFixed& source)
+			void Load(const fxcc::graph::VertexFixed& source)
 			{
 				pos = source.pos;
 				tex = source.tex;
@@ -52,7 +49,6 @@ namespace fxcc
 			{
 				return VertexType::_vertex_skinned_;
 			}
-			static Ogl::Gut::InputLayout Layouts();
 
 		};
 
@@ -63,7 +59,6 @@ namespace fxcc
 			{
 				return VertexType::_vertex_font_;
 			}
-			static Ogl::Gut::InputLayout Layouts();
 		};
 	};
 }

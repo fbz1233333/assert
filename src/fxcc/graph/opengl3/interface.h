@@ -15,6 +15,7 @@ namespace fxcc
         {
             struct Impl
             {
+ 
             };
         };
     };

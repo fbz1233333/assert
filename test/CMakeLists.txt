@@ -4,7 +4,5 @@ project(fxcc_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(audio)
-add_subdirectory(graph)
-add_subdirectory(physics)
-add_subdirectory(platform)
+add_subdirectory(fxcc)
+
