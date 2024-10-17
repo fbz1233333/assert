@@ -4,6 +4,7 @@ project(fxcc_platform_glfw_project)
 
 set(CMAKE_CXX_STANDARD 17)
 
+
 file(GLOB local_src *.cpp)
 file(GLOB local_header *.h)
 
