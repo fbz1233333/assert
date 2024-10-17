@@ -80,25 +80,13 @@ namespace fxcc
                 }
                 void glfw_refresh_callback(GLFWwindow *window)
                 {
-                    if (g_app)
-                    {
-                        g_app->OnRefresh();
-                    }
                 }
                 void glfw_pos_callback(GLFWwindow *, int x, int y)
                 {
-                    if (g_app)
-                    {
-                        g_app->OnWindowPos(x, y);
-                    }
                 }
 
                 void glfw_drop_callback(GLFWwindow *window, int count, const char **paths)
                 {
-                    if (g_app)
-                    {
-                        g_app->OnDrop(count, paths);
-                    }
                 };
             };
         };

@@ -29,7 +29,7 @@ bool App<fxcc::platform::glfw::Impl>::Init()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   // Required on Mac
 #else
 	// GL 3.0 + GLSL 130
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
@@ -38,6 +38,7 @@ bool App<fxcc::platform::glfw::Impl>::Init()
 
 	m_GlfwWindow = glfwCreateWindow(m_Desc.m_Size.x, m_Desc.m_Size.y, m_Desc.m_Title.c_str(), nullptr, nullptr);
 	glfwMakeContextCurrent(m_GlfwWindow);
+
 	glfwSetWindowSize(m_GlfwWindow, m_Desc.m_Size.x,m_Desc.m_Size.y);
 	glfwSetWindowPos(m_GlfwWindow, m_Desc.m_Pos.x, m_Desc.m_Pos.y);
 	glfwSetWindowTitle(m_GlfwWindow, m_Desc.m_Title.c_str());
@@ -45,7 +46,15 @@ bool App<fxcc::platform::glfw::Impl>::Init()
 	glfwSwapInterval(m_Desc.m_Interval);
 	// glfwSetErrorCallback(CallBacks::glfw_error_callback);
 
-
+	// glad.c related to some specificed opengl(version) implemnetion;
+//#ifdef _WIN32
+//	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+//	{
+//		//std::cout << "Failed to initialize GLAD" << std::endl;
+//		ztclog::warn("failed to initialized glad");
+//		return false;
+//	}
+//#endif
 
 	return true;
 };

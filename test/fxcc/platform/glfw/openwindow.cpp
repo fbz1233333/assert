@@ -11,7 +11,7 @@ int main()
     std::shared_ptr<FactoryImpl> factory = std::make_shared<FactoryImpl>();
     core::AppDesc desc;
     desc.m_Pos = glm::ivec2(100, 100);
-    desc.m_Size=glm::ivec2(800,600);
+    desc.m_Size=glm::ivec2(800, 600);
     desc.m_Title = "Test Open window ";
 
     auto app = factory->CreateApp(desc);

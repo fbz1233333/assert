@@ -1,8 +1,21 @@
 cmake_minimum_required(VERSION 3.5.0)
+
 project(fxcc_project)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if(WIN32)
+
+add_subdirectory(_deps)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/glm)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/glfw/include)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/glad/include)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/assimp/include)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/ztclog/include)
+include_directories(${CMAKE_BINARY_DIR}/_deps/assimp/include)
+
+link_directories(${CMAKE_SOURCE_DIR}/_deps/glfw/lib)
+endif()
 
 if(WIN32)
 set(FXCC_BUILD_GRAPH_OPENGL3 ON)
