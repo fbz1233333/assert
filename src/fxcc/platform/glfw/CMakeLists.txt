@@ -10,7 +10,7 @@ file(GLOB local_header *.h)
 
 add_library(fxcc_platform_glfw STATIC ${local_src} ${local_header})
 
-target_link_libraries(fxcc_platform_glfw PUBLIC glfw3 )
+target_link_libraries(fxcc_platform_glfw PUBLIC glfw3 fxcc_platform_common)
 
 if(UNIX)
 target_link_libraries(fxcc_platform_glfw PUBLIC pthread dl)

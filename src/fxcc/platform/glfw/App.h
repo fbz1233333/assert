@@ -1,7 +1,7 @@
 #pragma once
 
 #include "fxcc/platform/glfw/pch.h"
-#include "fxcc/platform/common/AppDesc.h"
+#include "fxcc/platform/common/App.h"
 
 namespace fxcc
 {
@@ -9,11 +9,10 @@ namespace fxcc
     {
         namespace glfw
         {
-            struct App
+            struct App :public fxcc::platform::common::App
             {
-                common::AppDesc m_Desc;
 
-                App(const common::AppDesc& desc);
+                App(const App::Desc& desc);
 
                 virtual bool Init();
 

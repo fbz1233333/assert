@@ -9,4 +9,4 @@ file(GLOB local_header *.h)
 
 add_library(fxcc_platform_win32 ${local_src} ${local_header})
 
-target_link_libraries(fxcc_platform_win32 )
+target_link_libraries(fxcc_platform_win32 PUBLIC  fxcc_platform_common)

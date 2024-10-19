@@ -2,7 +2,6 @@
 #include "fxcc/platform/common/Input.h"
 
 using namespace fxcc::platform::glfw;
-using namespace fxcc::platform::common;
 
 #define FXCC_BUILD_PLATFORM_GFLW_FAILED(x) if(!x) return false
 #define FXCC_BUILD_PLATFORM_GLFW_SUCCESE(x) if(!x) return true
@@ -148,8 +147,8 @@ namespace fxcc
 
 std::unordered_map<GLFWwindow*, struct App*> CallBacks::m_Apps;
 
-fxcc::platform::glfw::App::App(const common::AppDesc& desc)
-    : m_Desc(desc) 
+fxcc::platform::glfw::App::App(const common::App::Desc& desc)
+    : common::App(desc) 
 {
 };
 
@@ -181,8 +180,14 @@ bool App::Init()
 	glfwSetWindowSize(m_GlfwWindow, m_Desc.m_Size.x,m_Desc.m_Size.y);
 	glfwSetWindowPos(m_GlfwWindow, m_Desc.m_Pos.x, m_Desc.m_Pos.y);
 	glfwSetWindowTitle(m_GlfwWindow, m_Desc.m_Title.c_str());
+    
+    if (m_Desc.m_Iconify)
+    {
+        glfwIconifyWindow(m_GlfwWindow);
+    }
 
 	glfwSwapInterval(m_Desc.m_Interval);
+
     CallBacks::Register(this);
 
 
