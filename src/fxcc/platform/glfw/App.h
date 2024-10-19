@@ -1,94 +1,52 @@
 #pragma once
 
-#include "fxcc/platform/glfw/interface.h"
-#include "fxcc/platform/core/AppDesc.h"
+#include "fxcc/platform/glfw/pch.h"
+#include "fxcc/platform/common/AppDesc.h"
 
 namespace fxcc
 {
     namespace platform
     {
-
-        template <>
-        struct App<fxcc::platform::glfw::Impl>
+        namespace glfw
         {
-            core::AppDesc m_Desc;
-            App<fxcc::platform::glfw::Impl>(const core::AppDesc &desc) : m_Desc(desc)
+            struct App
             {
-            };
-            virtual bool Init();
+                common::AppDesc m_Desc;
 
-            virtual void Destory();
+                App(const common::AppDesc& desc);
 
-            int Run();
+                virtual bool Init();
 
-        protected:
-            virtual void OnFrameRender(){};
+                virtual void Destory();
 
-            virtual void OnTick(){};
+                int Run();
 
-            virtual void OnAfterUpdate() {};
+            protected:
+                virtual void OnFrameRender() {};
 
-        public:
-            GLFWwindow *m_GlfwWindow = nullptr;
+                virtual void OnTick() {};
 
-        public:
-            static std::unordered_map<GLFWwindow *, App<glfw::Impl> *> m_Apps;
-            struct CallBacks
-            {
-                void glfw_error_callback(int error, const char *description)
-                {
-                    ztclog::info("Glfw Error %d: %s\n", error, description);
-                }
-                void glfw_key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
-                {
-            
-                }
-                void glfw_cursorpos_callback(GLFWwindow *window, double x, double y)
-                {
-            
-                }
-                void glfw_mouse_callback(GLFWwindow *window, int key, int action, int mode)
-                {
-         
-                }
-                void glfw_frame_callback(GLFWwindow *window, int width, int height)
-                {
-     
-                }
-                void glfw_monitor_callback(GLFWmonitor *window, int ev)
-                {
-     }
-                void glfw_window_focus_callback(GLFWwindow *window, int e)
-                {
-         
-                }
-                void glfw_close_callback(GLFWwindow *window)
-                {
-           
-                }
-                void glfw_joystick_callback(int joy, int event)
-                {
-          
-                }
-                void glfw_window_iconify_callback(GLFWwindow *window, int ev)
-                {
-         
-                }
-                void glfw_scroll_callback(GLFWwindow *window, double x, double y)
-                {
-          
-                }
-                void glfw_refresh_callback(GLFWwindow *window)
-                {
-                }
-                void glfw_pos_callback(GLFWwindow *, int x, int y)
-                {
-                }
+                virtual void OnAfterUpdate() {};
 
-                void glfw_drop_callback(GLFWwindow *window, int count, const char **paths)
-                {
-                };
+
+            public:
+
+                GLFWwindow* m_GlfwWindow = nullptr;
+
+                virtual void OnFramebuffersize(int w, int h);
+
+                virtual void OnWindowPos(int x, int y);
+
+                virtual void OnFocus(int e);
+
+                virtual void OnIconify(int e);
+                
+                virtual void OnClose() ;
+                
+                virtual void OnRefresh();
+
+
             };
         };
     };
-};
+}

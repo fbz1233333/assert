@@ -1,15 +1,16 @@
 #pragma once
 
-#include "fxcc/platform/core/pch.h"
+#include "fxcc/platform/common/pch.h"
 
 namespace fxcc
 {
     namespace platform
     {
-        namespace core
+        namespace common
         {
-            struct Keyboard
+            struct Joystick
             {
+                
             };
         };
     };
