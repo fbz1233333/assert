@@ -42,7 +42,8 @@ bool win32::App::Init()
 {
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, fxcc::platform::win32::CallBacks::WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, m_lpClassName, nullptr };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, m_Desc.GetTitleW().c_str(), WS_OVERLAPPEDWINDOW, 
+
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, m_Desc.GetTitleW().c_str(), WS_OVERLAPPEDWINDOW,
         m_Desc.m_Pos.x, m_Desc.m_Pos.y, m_Desc.m_Size.x, m_Desc.m_Size.y, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Show the window

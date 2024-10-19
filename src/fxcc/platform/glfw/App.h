@@ -12,7 +12,6 @@ namespace fxcc
         {
             struct App :public fxcc::platform::common::App
             {
-
                 App(const App::Desc& desc);
 
                 virtual bool Init();
