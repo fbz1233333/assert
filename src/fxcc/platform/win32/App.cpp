@@ -61,6 +61,12 @@ LRESULT WINAPI fxcc::platform::win32::App::OnWndProj(HWND hWnd, UINT msg, WPARAM
 
     switch (msg)
     {
+    case WM_KEYDOWN: 
+        if (wParam == VK_ESCAPE) { 
+            PostQuitMessage(0); 
+        }
+        break;
+
     case WM_SIZE:
         if (wParam == SIZE_MINIMIZED)
             return 0;

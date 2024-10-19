@@ -30,10 +30,5 @@ struct Input
 	{
 
 	};
-	static Input& Inst()
-	{
 
-		static Input input;
-		return input;
-	};
 };

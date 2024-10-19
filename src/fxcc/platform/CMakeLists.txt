@@ -15,6 +15,10 @@ add_subdirectory(win32)
 endif()
 
 
-if(FXCC_BUILD_PLATFORM_SDL)
-add_subdirectory(sdl)
+if(FXCC_BUILD_PLATFORM_SDL2)
+add_subdirectory(sdl2)
+endif()
+
+if(FXCC_BUILD_PLATFORM_SDL3)
+add_subdirectory(sdl3)
 endif()

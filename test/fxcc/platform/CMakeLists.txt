@@ -4,7 +4,21 @@ project(fxcc_test_platform)
 
 set(CMAKE_CXX_STANDARD 17)
 
-message("build platform ")
+set(FXCC_PLATFORM_GLFW_SCLAE_FACTOR "1.5f")
 
-add_subdirectory(glfw)
+add_executable(fxcc_test_win32_openwindow openwindow.cpp )
+target_link_libraries(fxcc_test_win32_openwindow PUBLIC fxcc_platform_win32)
+target_compile_definitions(fxcc_test_win32_openwindow PRIVATE FXCC_USE_PLATFORM_WIN32)
 
+add_executable(fxcc_test_glfw_openwindow openwindow.cpp )
+target_link_libraries(fxcc_test_glfw_openwindow PUBLIC fxcc_platform_glfw )
+target_compile_definitions(fxcc_test_glfw_openwindow PRIVATE FXCC_USE_PLATFORM_GLFW)
+
+add_executable(fxcc_test_sdl2_openwindow openwindow.cpp )
+target_link_libraries(fxcc_test_sdl2_openwindow PUBLIC fxcc_platform_sdl2 )
+target_compile_definitions(fxcc_test_sdl2_openwindow PRIVATE FXCC_USE_PLATFORM_SDL2)
+
+
+add_executable(fxcc_test_sdl3_openwindow openwindow.cpp )
+target_link_libraries(fxcc_test_sdl3_openwindow PRIVATE fxcc_platform_sdl3 )
+target_compile_definitions(fxcc_test_sdl3_openwindow PRIVATE FXCC_USE_PLATFORM_SDL3)

@@ -24,7 +24,10 @@ bool App::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   // Required on Mac
 
-	m_GlfwWindow = glfwCreateWindow(m_Desc.m_Size.x, m_Desc.m_Size.y, m_Desc.m_Title.c_str(), nullptr, nullptr);
+	glm::ivec2 wndPos = m_Desc.GetGflwPos();
+	glm::ivec2 wndSize = m_Desc.GetGflwSize();
+
+	m_GlfwWindow = glfwCreateWindow(wndSize.x, wndSize.y, m_Desc.m_Title.c_str(), nullptr, nullptr);
 
 	if (!m_GlfwWindow) {
 		//std::cerr << "Failed to create GLFW window" << std::endl;
@@ -35,8 +38,8 @@ bool App::Init()
 
 	glfwMakeContextCurrent(m_GlfwWindow);
 
-	glfwSetWindowSize(m_GlfwWindow, m_Desc.m_Size.x,m_Desc.m_Size.y);
-	glfwSetWindowPos(m_GlfwWindow, m_Desc.m_Pos.x, m_Desc.m_Pos.y);
+	glfwSetWindowSize(m_GlfwWindow, wndSize.x, wndSize.y);
+	glfwSetWindowPos(m_GlfwWindow, wndPos.x, wndPos.y);
 	glfwSetWindowTitle(m_GlfwWindow, m_Desc.m_Title.c_str());
     
     if (m_Desc.m_Iconify)

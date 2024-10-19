@@ -1,6 +1,7 @@
 #pragma once
 
 #include "fxcc/pch.h"
+#include "fxcc/platform/common/Input.h"
 
 namespace fxcc
 {
@@ -15,12 +16,14 @@ namespace fxcc
 					glm::ivec2 m_Pos;
 					glm::ivec2 m_Size;
 					std::string m_Title;
+					float m_ScaleFactor;
+
 					int m_Interval;
 
 					bool m_Focused;
 					bool m_Iconify;
 
-					Desc() :m_Interval(0), m_Focused(false), m_Iconify(false), m_Pos(0), m_Size(glm::ivec2(800, 600))
+					Desc() :m_Interval(0), m_Focused(false), m_Iconify(false), m_Pos(0), m_Size(glm::ivec2(800, 600)),m_ScaleFactor(1.0f)
 					{
 
 					}
@@ -29,7 +32,18 @@ namespace fxcc
 						std::wstring wtitle(m_Title.begin(), m_Title.end());
 						return wtitle;
 					}
+					glm::ivec2 GetGflwPos()
+					{
+						return glm::ivec2(m_Pos.x * m_ScaleFactor, m_Pos.x * m_ScaleFactor);
+					};
+					glm::ivec2 GetGflwSize()
+					{
+						return glm::ivec2(m_Size.x * m_ScaleFactor, m_Size.y * m_ScaleFactor);
+					}
+
 				}m_Desc;
+
+				Input m_Input;
 				App(const App::Desc& desc) :m_Desc(desc) {}
 				
 

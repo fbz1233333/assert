@@ -19,7 +19,9 @@ include_directories(${CMAKE_SOURCE_DIR}/_deps/glad/include)
 include_directories(${CMAKE_SOURCE_DIR}/_deps/assimp/include)
 include_directories(${CMAKE_SOURCE_DIR}/_deps/ztclog/include)
 include_directories(${CMAKE_BINARY_DIR}/_deps/assimp/include)
-
+include_directories(${CMAKE_SOURCE_DIR}/_deps/SDL2/include)
+include_directories(${CMAKE_SOURCE_DIR}/_deps/SDL3/include)
+include_directories(${CMAKE_BINARY_DIR}/_deps/SDL3/include)
 link_directories(${CMAKE_SOURCE_DIR}/_deps/glfw/lib)
 endif()
 
@@ -37,7 +39,9 @@ if(WIN32)
 set(FXCC_BUILD_PLATFORM_WIN32 ON)
 endif()
 
-set(FXCC_BUILD_PLATFORM_SDL ON)
+set(FXCC_BUILD_PLATFORM_SDL2 ON)
+set(FXCC_BUILD_PLATFORM_SDL3 ON)
+
 
 # set(FXCC_BUILD_AUDIO_OPENAL ON)
 # set(FXCC_BUILD_PHYSICS_RP3D ON)

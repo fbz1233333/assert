@@ -11,3 +11,4 @@ git clone git@gitee.com:sskey/openal-soft.git
 git clone -b docking git@gitee.com:zhouxs1023/imgui.git
 git clone git@gitee.com:iamherer/glfw_.git glfw
 git clone git@gitee.com:iamherer/glad_1.git glad
+git clone -b main git@gitee.com:source-code-sync/SDL.git SDL

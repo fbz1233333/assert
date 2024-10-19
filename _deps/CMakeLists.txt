@@ -15,3 +15,7 @@ add_subdirectory(openal-soft)
 
 add_subdirectory(yaml-cpp)
 # add_subdirectory(reactphysics)
+add_subdirectory(SDL2)
+
+set(SDL_LIBC ON)
+add_subdirectory(SDL3)

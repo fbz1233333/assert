@@ -29,15 +29,16 @@ void fxcc::platform::glfw::CallBacks::glfw_error_callback(int error, const char*
 void fxcc::platform::glfw::CallBacks::glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
-
-    auto& input = Input::Inst();
+    auto app = GetWindow(window);
+    auto& input = app->m_Input;
     input.KeyCallback(key, scancode, action, mode);
 
 }
 void fxcc::platform::glfw::CallBacks::glfw_cursorpos_callback(GLFWwindow* window, double x, double y)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
-    auto& input = Input::Inst();
+    auto app = GetWindow(window);
+    auto& input = app->m_Input;
     input.CursorPos((int)x, int(y));
 }
 
@@ -45,7 +46,8 @@ void fxcc::platform::glfw::CallBacks::glfw_mouse_callback(GLFWwindow* window, in
 
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
-    auto& input = Input::Inst();
+    auto app = GetWindow(window);
+    auto& input = app->m_Input;
     input.MouseCallBack(key, action, mode);
 }
 void fxcc::platform::glfw::CallBacks::glfw_frame_callback(GLFWwindow* window, int width, int height)
@@ -81,7 +83,8 @@ void fxcc::platform::glfw::CallBacks::glfw_close_callback(GLFWwindow* window)
 void fxcc::platform::glfw::CallBacks::glfw_joystick_callback(int joy, int event)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(glfwGetCurrentContext()));
-    auto& input = Input::Inst();
+    auto app = GetWindow(glfwGetCurrentContext());
+    auto& input = app->m_Input;
     input.JoysticCallback(joy, event);
 }
 
@@ -97,7 +100,8 @@ void fxcc::platform::glfw::CallBacks::glfw_window_iconify_callback(GLFWwindow* w
 void fxcc::platform::glfw::CallBacks::glfw_scroll_callback(GLFWwindow* window, double x, double y)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
-    auto& input = Input::Inst();
+    auto app = GetWindow(glfwGetCurrentContext());
+    auto& input = app->m_Input;
     input.Scroll(x, y);
 }
 
