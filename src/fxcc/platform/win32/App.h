@@ -16,7 +16,19 @@ namespace fxcc
 
 				bool Init();
 
-				int Run() { return 0; };
+				int Run();
+
+				virtual LRESULT WINAPI OnWndProj(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+				static win32::App* g_Inst;
+
+			private:
+				HWND m_wnd;
+
+				LPCWSTR m_lpClassName;
+
+				HINSTANCE m_hInstance;
+
 			};
 		}
 	}

@@ -24,8 +24,14 @@ namespace fxcc
 					{
 
 					}
+					std::wstring GetTitleW()
+					{
+						std::wstring wtitle(m_Title.begin(), m_Title.end());
+						return wtitle;
+					}
 				}m_Desc;
 				App(const App::Desc& desc) :m_Desc(desc) {}
+				
 
 			};
 		}

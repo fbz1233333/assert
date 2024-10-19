@@ -2,6 +2,7 @@
 
 #include "fxcc/platform/glfw/pch.h"
 #include "fxcc/platform/common/App.h"
+#include "fxcc/platform/glfw/Callbacks.h"
 
 namespace fxcc
 {
@@ -43,6 +44,8 @@ namespace fxcc
                 virtual void OnClose() ;
                 
                 virtual void OnRefresh();
+
+                virtual void OnMonitor(int e);
 
 
             };
