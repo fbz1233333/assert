@@ -12,3 +12,6 @@ CMakeCache.txt
 *.vcxproj
 *.filters
 *.sln
+_deps/glad
+_deps/imgui_src
+_deps/ztclog/
