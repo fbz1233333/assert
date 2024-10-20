@@ -19,6 +19,7 @@ namespace fxcc
 		{
 			struct App
 			{
+
 				struct Desc
 				{
 					glm::ivec2 m_Pos;
@@ -54,14 +55,62 @@ namespace fxcc
 				Input m_Input;
 				App(const App::Desc& desc) :m_Desc(desc) {}
 				
+	
+		
+				virtual void InitWindow() {
+					ztclog::warn("init window with common app ");
+				};
 
-				std::map<int, int> sdlMouseMap =
+				virtual void InitGraph() {
+					ztclog::warn("init graph with common app ");
+				};
+
+				virtual void PollEvents() {
+					ztclog::warn("Poll Events with common app ");
+				};
+
+				virtual void OnFrameRender() {};
+
+				virtual void OnTick() {};
+
+				virtual void OnClearTick() {};
+
+				virtual void OnImGui() {};
+				
+				virtual void OnSwapBuffers() {
+					ztclog::warn("Swap buffers with common app ");
+				};
+				virtual void PrepareWindowHint()
 				{
-					{SDL_BUTTON_LEFT, Mouse::Button::_btn_left_},
-					{SDL_BUTTON_RIGHT, Mouse::Button::_btn_right_},
-					{SDL_BUTTON_MIDDLE, Mouse::Button::_btn_middle_},
-					{SDL_BUTTON_X1, Mouse::Button::_btn_nearside_},
-					{SDL_BUTTON_X2, Mouse::Button::_btn_farside_}
+					ztclog::warn("Window hint with common app ");
+
+				};
+
+				void Run()
+				{
+					while (1)
+					{
+						PollEvents();
+
+						OnFrameRender();
+
+						OnTick();
+						
+						OnClearTick();
+
+						OnImGui();
+
+						OnSwapBuffers();
+					}
+				}
+				
+				virtual void DestroyGraph() {
+					ztclog::warn("destory graph with common app ");
+
+				};
+
+				virtual void DestroyWindow() {
+					ztclog::warn("destory window with common app ");
 				};
 			};
 		}

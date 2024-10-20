@@ -14,7 +14,7 @@ namespace fxcc
 			{
 				App(const fxcc::platform::common::App::Desc& desc);
 
-				virtual bool Init() override;
+				bool Init() ;
 
 				void OnSwapBuffer() override;
 		

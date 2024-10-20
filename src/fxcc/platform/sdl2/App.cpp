@@ -51,6 +51,14 @@ bool sdl2::App::Init()
 
 int sdl2::App::Run()
 {
+    std::map<int, int> sdlMouseMap =
+    {
+        {SDL_BUTTON_LEFT, Mouse::Button::_btn_left_},
+        {SDL_BUTTON_RIGHT, Mouse::Button::_btn_right_},
+        {SDL_BUTTON_MIDDLE, Mouse::Button::_btn_middle_},
+        {SDL_BUTTON_X1, Mouse::Button::_btn_nearside_},
+        {SDL_BUTTON_X2, Mouse::Button::_btn_farside_}
+    };
 
     bool running = true;
     SDL_Event ev;

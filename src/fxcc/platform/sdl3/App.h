@@ -12,7 +12,6 @@ namespace fxcc
 
         namespace sdl3
         {
-
             struct App :public common::App
             {
 

@@ -26,6 +26,7 @@ namespace fxcc
 				{
 
 				}
+				virtual void DrawElements() const = 0;
 			};
 		};
 	};

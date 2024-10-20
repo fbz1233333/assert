@@ -14,7 +14,7 @@ namespace fxcc
             {
                 App(const App::Desc& desc);
 
-                virtual bool Init();
+                bool Init();
 
                 bool InitWindow();
 
