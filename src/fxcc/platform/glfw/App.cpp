@@ -26,7 +26,6 @@ bool App::Init()
 	glm::ivec2 wndSize = m_Desc.GetGflwSize();
 
 	m_GlfwWindow = glfwCreateWindow(wndSize.x, wndSize.y, m_Desc.m_Title.c_str(), nullptr, nullptr);
-
 	if (!m_GlfwWindow) {
 		//std::cerr << "Failed to create GLFW window" << std::endl;
 		ztclog::warn("failed create window");
@@ -49,7 +48,8 @@ bool App::Init()
 
     CallBacks::Register(this);
 
-
+	GetJoyStickDevices();
+	
 	return true;
 };
 
@@ -77,17 +77,33 @@ int App::Run()
 	return 0;
 
 }
+void fxcc::platform::glfw::App::GetJoyStickDevices()
+{
+	for (int i = 0; i < GLFW_JOYSTICK_LAST; ++i)
+	{
+		if (glfwJoystickPresent(i))
+		{
+			m_Input.JoysticCallback(i, 1, glfwGetJoystickName(i));
+		}
+	}
+}
+
 void fxcc::platform::glfw::App::OnJoystick()
 {
-	int count;
-	const unsigned char* buttons = glfwGetJoystickButtons(0, &count);
-
-	for (int i = 0; i < count; ++i)
+	std::vector<int> joyDecvices = m_Input.GetJoystickNos();
+	for (const auto& jId : joyDecvices)
 	{
-		std::cout << (int)buttons[i] << " "; // 1 表示按下，0 表示未按下
+		int count;
+		const unsigned char* buttons = glfwGetJoystickButtons(jId, &count);
+		m_Input.SetJoystickStates(jId, count, buttons);
+
+		int axesCount;
+		const float* axes = glfwGetJoystickAxes(jId, &axesCount);
+		m_Input.SetJoystickAxes(jId, axesCount, axes);
 	}
 	
 };
+
 void App::OnFramebuffersize(int w, int h)
 {
     m_Desc.m_Size.x = w; 

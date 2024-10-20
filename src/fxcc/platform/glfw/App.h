@@ -20,6 +20,8 @@ namespace fxcc
 
                 int Run();
 
+                void GetJoyStickDevices();
+
                 void OnJoystick();
             protected:
                 virtual void OnFrameRender() {};

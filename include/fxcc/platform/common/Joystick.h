@@ -1,17 +1,40 @@
 #pragma once
 
-#include "fxcc/platform/common/pch.h"
+#include "fxcc/pch.h"
 
-namespace fxcc
+struct Joystick
 {
-    namespace platform
-    {
-        namespace common
-        {
-            struct Joystick
-            {
-                
-            };
-        };
-    };
+	std::string m_Name;
+
+	std::vector<int> m_States;
+	
+	std::vector<float> m_Axes;
+
+	void SetAxes(int count, const float* axes)
+	{
+		m_Axes.clear();
+		m_Axes.resize(count);
+		for (int i = 0; i < count; i++)
+		{
+			m_Axes[i] = axes[i];
+		}
+
+	}
+
+	void SetStates(int count,const unsigned char* btns)
+	{
+		m_States.clear();
+		m_States.resize(count);
+		for (int i = 0; i < count; i++)
+		{
+			m_States[i] = btns[i];
+
+			if (btns[i])
+			{
+				ztclog::debug("clicked %d", i);
+			}
+		}
+
+	}
+
 };
