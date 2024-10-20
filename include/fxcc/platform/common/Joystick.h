@@ -17,6 +17,10 @@ struct Joystick
 		for (int i = 0; i < count; i++)
 		{
 			m_Axes[i] = axes[i];
+			if (m_Axes[i] != -1 && m_Axes[i] != 0)
+			{
+				std::cout << m_Axes[i] << std::endl;
+			}
 		}
 
 	}

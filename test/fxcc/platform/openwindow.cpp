@@ -1,33 +1,4 @@
-
-
-
-
-#include "fxcc/platform/common/App.h"
-using namespace fxcc::platform;
-using namespace fxcc::platform::common;
-
-#ifdef FXCC_USE_PLATFORM_GLFW
-#include "fxcc/platform/glfw/App.h"
-using Platform = glfw::App;
-#endif
-
-#ifdef FXCC_USE_PLATFORM_WIN32
-#include "fxcc/platform/win32/App.h"
-using Platform = win32::App;
-#endif
-
-#ifdef FXCC_USE_PLATFORM_SDL2
-#include "fxcc/platform/sdl2/App.h"
-using Platform = sdl2::App;
-#undef main
-
-#endif
-
-#ifdef FXCC_USE_PLATFORM_SDL3
-#include "fxcc/platform/sdl3/App.h"
-using Platform = sdl3::App;
-#endif
-
+#include "test_config.h"
 
 int main()
 {
@@ -45,7 +16,7 @@ int main()
     // desc.m_Iconify = true;
     // desc.m_Interval = 0;
 
-    auto app = std::make_shared<Platform>(desc);
+    auto app = std::make_shared<PlatformApp>(desc);
     if (!app->Init())
     {
         ztclog::info("failed init window");

@@ -40,6 +40,17 @@ int win32::App::Run()
 
 bool win32::App::Init()
 {
+    if (!InitWindow())
+    {
+        ztclog::warn("failed int the window");
+        return false;
+    };
+
+    return true;
+}
+
+bool fxcc::platform::win32::App::InitWindow()
+{
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, fxcc::platform::win32::CallBacks::WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, m_lpClassName, nullptr };
     ::RegisterClassExW(&wc);
 
@@ -49,7 +60,6 @@ bool win32::App::Init()
     // Show the window
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
-
 
     return true;
 }

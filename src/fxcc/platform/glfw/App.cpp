@@ -10,24 +10,28 @@ fxcc::platform::glfw::App::App(const common::App::Desc& desc)
 
 bool App::Init()
 {
+	if (!InitWindow())
+	{
+		ztclog::info("failed init window");
+	}
+
+	return true;
+}
+
+bool fxcc::platform::glfw::App::InitWindow()
+{
 	if (!glfwInit())
 	{
 		ztclog::warn("failed create glfw window");
 		return false;
 	}
-
-	const char* glsl_version = "#version 330";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   // Required on Mac
+	OnWindowHint();
 
 	glm::ivec2 wndPos = m_Desc.GetGflwPos();
 	glm::ivec2 wndSize = m_Desc.GetGflwSize();
 
 	m_GlfwWindow = glfwCreateWindow(wndSize.x, wndSize.y, m_Desc.m_Title.c_str(), nullptr, nullptr);
 	if (!m_GlfwWindow) {
-		//std::cerr << "Failed to create GLFW window" << std::endl;
 		ztclog::warn("failed create window");
 		glfwTerminate();
 		return false;
@@ -38,19 +42,29 @@ bool App::Init()
 	glfwSetWindowSize(m_GlfwWindow, wndSize.x, wndSize.y);
 	glfwSetWindowPos(m_GlfwWindow, wndPos.x, wndPos.y);
 	glfwSetWindowTitle(m_GlfwWindow, m_Desc.m_Title.c_str());
-    
-    if (m_Desc.m_Iconify)
-    {
-        glfwIconifyWindow(m_GlfwWindow);
-    }
+
+	if (m_Desc.m_Iconify)
+	{
+		glfwIconifyWindow(m_GlfwWindow);
+	}
 
 	glfwSwapInterval(m_Desc.m_Interval);
 
-    CallBacks::Register(this);
+	CallBacks::Register(this);
 
 	GetJoyStickDevices();
-	
+
 	return true;
+}
+
+void fxcc::platform::glfw::App::OnWindowHint()
+{
+
+	const char* glsl_version = "#version 330";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);		   
 };
 
 int App::Run()
@@ -59,21 +73,16 @@ int App::Run()
 	{
 		glfwPollEvents();
 
-		// if (m_Desc.m_Focused)
-		{
-			OnFrameRender();
+		OnFrameRender();
 
-			OnTick();
-		
-			OnJoystick();
+		OnTick();
 
-			OnAfterUpdate();
-		}
+		OnAfterUpdate();
 
-		glfwSwapBuffers(m_GlfwWindow);
+		OnSwapBuffer();
 	}
 
-	Destory();
+	OnDestory();
 	return 0;
 
 }
@@ -103,6 +112,12 @@ void fxcc::platform::glfw::App::OnJoystick()
 	}
 	
 };
+
+void fxcc::platform::glfw::App::OnTick()
+{
+	OnJoystick();
+};
+
 
 void App::OnFramebuffersize(int w, int h)
 {
@@ -141,9 +156,8 @@ void fxcc::platform::glfw::App::OnMonitor(int e)
 }
 ;
 
-void App::Destory()
+void App::OnDestory()
 {
 	glfwDestroyWindow(m_GlfwWindow);
 	glfwTerminate();
-
 }

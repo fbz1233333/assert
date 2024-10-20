@@ -16,6 +16,8 @@ namespace fxcc
 
 				bool Init();
 
+				bool InitWindow();
+
 				int Run();
 
 				virtual LRESULT WINAPI OnWndProj(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

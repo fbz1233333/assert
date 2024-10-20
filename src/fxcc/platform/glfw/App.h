@@ -16,17 +16,24 @@ namespace fxcc
 
                 virtual bool Init();
 
-                virtual void Destory();
+                bool InitWindow();
 
                 int Run();
 
                 void GetJoyStickDevices();
 
                 void OnJoystick();
+
+
             protected:
+                
+                virtual void BeginFrame() {};
+
+                virtual void EndFrame() {}
+                
                 virtual void OnFrameRender() {};
 
-                virtual void OnTick() {};
+                virtual void OnTick();
 
                 virtual void OnAfterUpdate() {};
 
@@ -49,6 +56,11 @@ namespace fxcc
 
                 virtual void OnMonitor(int e);
 
+                virtual void OnSwapBuffer() {};
+
+                virtual void OnWindowHint();
+
+                virtual void OnDestory();
 
             };
         };
