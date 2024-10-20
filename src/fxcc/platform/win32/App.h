@@ -22,15 +22,21 @@ namespace fxcc
 
 				virtual LRESULT WINAPI OnWndProj(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-				static win32::App* g_Inst;
+				virtual void OnDestory();
 
-			private:
+				void OnJoystick();
+
+			public:
 				HWND m_wnd;
 
 				LPCWSTR m_lpClassName;
 
 				HINSTANCE m_hInstance;
 
+			private:
+				void HandleMouseInput(UINT msg, WPARAM wParam, LPARAM lParam);
+
+				void HandleKeyInput(UINT msg , WPARAM wParam, LPARAM lParam);
 			};
 		}
 	}

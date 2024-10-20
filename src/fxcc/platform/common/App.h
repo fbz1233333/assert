@@ -3,6 +3,14 @@
 #include "fxcc/pch.h"
 #include "fxcc/platform/common/Input.h"
 
+#ifndef SDL_mouse_h_
+#define SDL_BUTTON_LEFT     1
+#define SDL_BUTTON_MIDDLE   2
+#define SDL_BUTTON_RIGHT    3
+#define SDL_BUTTON_X1       4
+#define SDL_BUTTON_X2       5
+#endif 
+
 namespace fxcc
 {
 	namespace platform
@@ -47,6 +55,14 @@ namespace fxcc
 				App(const App::Desc& desc) :m_Desc(desc) {}
 				
 
+				std::map<int, int> sdlMouseMap =
+				{
+					{SDL_BUTTON_LEFT, Mouse::Button::_btn_left_},
+					{SDL_BUTTON_RIGHT, Mouse::Button::_btn_right_},
+					{SDL_BUTTON_MIDDLE, Mouse::Button::_btn_middle_},
+					{SDL_BUTTON_X1, Mouse::Button::_btn_nearside_},
+					{SDL_BUTTON_X2, Mouse::Button::_btn_farside_}
+				};
 			};
 		}
 	}

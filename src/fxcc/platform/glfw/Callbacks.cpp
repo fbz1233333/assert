@@ -31,7 +31,7 @@ void fxcc::platform::glfw::CallBacks::glfw_key_callback(GLFWwindow* window, int 
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
     auto app = GetWindow(window);
     auto& input = app->m_Input;
-    input.KeyCallback(key, scancode, action, mode);
+    input.KeyCallback(scancode, action);
 
 }
 void fxcc::platform::glfw::CallBacks::glfw_cursorpos_callback(GLFWwindow* window, double x, double y)
@@ -43,12 +43,13 @@ void fxcc::platform::glfw::CallBacks::glfw_cursorpos_callback(GLFWwindow* window
 }
 
 void fxcc::platform::glfw::CallBacks::glfw_mouse_callback(GLFWwindow* window, int key, int action, int mode)
-
 {
+    ztclog::info("mode %d", mode);
+
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
     auto app = GetWindow(window);
     auto& input = app->m_Input;
-    input.MouseCallBack(key, action, mode);
+    input.MouseCallBack(key, action);
 }
 void fxcc::platform::glfw::CallBacks::glfw_frame_callback(GLFWwindow* window, int width, int height)
 {

@@ -13,8 +13,8 @@ bool App::Init()
 	if (!InitWindow())
 	{
 		ztclog::info("failed init window");
+		return false;
 	}
-
 	return true;
 }
 

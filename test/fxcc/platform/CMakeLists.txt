@@ -4,7 +4,6 @@ project(fxcc_test_platform)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(FXCC_PLATFORM_GLFW_SCLAE_FACTOR "1.5f")
 
 add_executable(fxcc_test_win32_openwindow openwindow.cpp )
 target_link_libraries(fxcc_test_win32_openwindow PUBLIC fxcc_platform_win32)

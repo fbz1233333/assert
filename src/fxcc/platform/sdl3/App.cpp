@@ -54,14 +54,67 @@ bool sdl3::App::Init()
 
 int sdl3::App::Run()
 {
+ 
+
     bool running = true;
-    SDL_Event event;
+    SDL_Event ev;
     while (running) {
-        while (SDL_PollEvent(&event) != 0) {
-            if (event.type == SDL_EVENT_QUIT) {
+        while (SDL_PollEvent(&ev) != 0) {
+
+            switch (ev.type)
+            {
+            case SDL_EVENT_QUIT:
+            {
                 running = false;
             }
+            break;
+            case SDL_EVENT_KEY_DOWN:
+            {
+                int scancode = ev.key.scancode;
+                m_Input.KeyCallback(scancode, 1);
+            }
+            break;
+            case SDL_EVENT_KEY_UP:
+            {
+                int scancode = ev.key.scancode;
+                m_Input.KeyCallback(scancode, 0);
+            }
+            break;
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 1);
+                break;
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 0);
+                break;
+            case SDL_EVENT_MOUSE_MOTION:
+            {
+                int x, y;
+                x = ev.motion.x;
+                y = ev.motion.y;
+                m_Input.CursorPos(x, y);
+            }
+
+            break;
+            case SDL_EVENT_MOUSE_WHEEL:
+            {
+                m_Input.Scroll(ev.wheel.x, ev.wheel.y);
+            }
+            break;
+
+            default:
+                break;
+
+            }
         }
-    }
+    };
+
+    OnDestory();
 	return 0;
+}
+
+void sdl3::App::OnDestory()
+{
+    SDL_DestroyWindow(m_SDLwindow);
+    SDL_Quit();
+
 }

@@ -46,24 +46,72 @@ bool sdl2::App::Init()
     SDL_GL_SetSwapInterval(m_Desc.m_Interval); // Enable vsync
     SDL_ShowWindow(m_SDLwindow);
 
-
     return true;
 };
 
 int sdl2::App::Run()
 {
+
     bool running = true;
-    SDL_Event event;
+    SDL_Event ev;
+
     while (running) {
-        while (SDL_PollEvent(&event) != 0) {
-            if (event.type == SDL_QUIT) {
+        while (SDL_PollEvent(&ev) != 0) {
+
+            switch (ev.type)
+            {
+            case SDL_QUIT:
+            {
                 running = false;
+            }
+            break;
+            case SDL_KEYDOWN:
+            {
+                int scancode = ev.key.keysym.scancode;
+                m_Input.KeyCallback(scancode, 1);
+            }
+            break;
+            case SDL_KEYUP:
+            {
+                int scancode = ev.key.keysym.scancode;
+                m_Input.KeyCallback(scancode, 0);
+            }
+            break;
+            case SDL_MOUSEBUTTONDOWN:
+                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 1);
+                break;
+            case SDL_MOUSEBUTTONUP: 
+                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 0);
+                break;
+            case SDL_MOUSEMOTION:
+            {
+                int x, y;
+                x = ev.motion.x;
+                y = ev.motion.y;
+                m_Input.CursorPos(x, y);
+            }
+        
+                break;
+            case SDL_MOUSEWHEEL:
+            {
+                m_Input.Scroll(ev.wheel.x, ev.wheel.y);
+            }
+                break;
+
+            default:
+                break;
+
             }
         }
     };
 
+    OnDestory();
+    return 0;
+}
+
+void sdl2::App::OnDestory()
+{
     SDL_DestroyWindow(m_SDLwindow);
     SDL_Quit();
 
-    return 0;
 }

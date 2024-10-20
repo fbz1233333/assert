@@ -16,7 +16,17 @@ struct DepthStencilDesc
 	int m_StencilWriteMask;
 	int m_StencilFail, m_DepthFail, m_DepthStencilPass;
 
-	DepthStencilDesc() :m_EnableDepthFunc(true), m_DepthFunc(GL_LESS), m_EnableStencilFunc(false)
+	DepthStencilDesc() :
+		m_EnableDepthFunc(true), 
+		m_DepthFunc(GL_LESS), 
+		m_EnableStencilFunc(false), 
+		m_StencilFunc(GL_ALWAYS),
+		m_StencilRef(0),
+		m_StencilMask(0),
+		m_StencilWriteMask(0xFF),
+		m_StencilFail(GL_KEEP), 
+		m_DepthFail(GL_KEEP),
+		m_DepthStencilPass(GL_KEEP)
 	{
 	}
 };
@@ -25,7 +35,7 @@ struct BlendDesc
 {
 	bool m_EnableBlend;
 	int m_Sfactor, m_Dfactor;
-	BlendDesc() :m_EnableBlend(false)
+	BlendDesc() :m_EnableBlend(false), m_Sfactor(GL_SRC_ALPHA), m_Dfactor(GL_ONE_MINUS_SRC_ALPHA)
 	{
 
 	}

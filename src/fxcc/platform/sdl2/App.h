@@ -19,6 +19,8 @@ namespace fxcc
 
                 int Run();
 
+                virtual void OnDestory();
+
             private:
 
                 SDL_Window* m_SDLwindow;
