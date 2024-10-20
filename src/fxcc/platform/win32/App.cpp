@@ -61,10 +61,48 @@ LRESULT WINAPI fxcc::platform::win32::App::OnWndProj(HWND hWnd, UINT msg, WPARAM
 
     switch (msg)
     {
-    case WM_KEYDOWN: 
-        if (wParam == VK_ESCAPE) { 
-            PostQuitMessage(0); 
-        }
+    case WM_LBUTTONDOWN: 
+    {
+        int xPos = LOWORD(lParam);
+        int yPos = HIWORD(lParam);
+        ztclog::info("left button %d %d", xPos, yPos);
+    };
+
+    break;
+
+    case WM_RBUTTONDOWN: 
+    {
+        int xPos = LOWORD(lParam);
+        int yPos = HIWORD(lParam);
+        ztclog::info("right button %d %d", xPos, yPos);
+    }
+    break;
+
+    case WM_MOUSEMOVE: 
+    {
+        int xPos = LOWORD(lParam);
+        int yPos = HIWORD(lParam);
+        ztclog::info("mouse move %d %d", xPos, yPos);
+    }
+    break;
+    case WM_MOUSEWHEEL: 
+    {
+        int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+        if (zDelta > 0)
+            ztclog::info("Mouse Wheel Scrolled Up");
+        else
+            ztclog::info("Mouse Wheel Scrolled Down");
+    }
+    break;
+    case WM_KEYDOWN:
+    {
+        int scancode = (lParam & 0x00FF0000) >> 16;
+        ztclog::info("scancode %d", scancode);;
+
+    }
+        break;
+    case WM_KEYUP:
+
         break;
 
     case WM_SIZE:

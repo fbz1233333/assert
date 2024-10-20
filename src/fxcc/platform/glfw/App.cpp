@@ -3,8 +3,6 @@
 
 using namespace fxcc::platform::glfw;
 
-
-
 fxcc::platform::glfw::App::App(const common::App::Desc& desc)
     : common::App(desc) 
 {
@@ -66,7 +64,9 @@ int App::Run()
 			OnFrameRender();
 
 			OnTick();
-			
+		
+			OnJoystick();
+
 			OnAfterUpdate();
 		}
 
@@ -77,6 +77,17 @@ int App::Run()
 	return 0;
 
 }
+void fxcc::platform::glfw::App::OnJoystick()
+{
+	int count;
+	const unsigned char* buttons = glfwGetJoystickButtons(0, &count);
+
+	for (int i = 0; i < count; ++i)
+	{
+		std::cout << (int)buttons[i] << " "; // 1 表示按下，0 表示未按下
+	}
+	
+};
 void App::OnFramebuffersize(int w, int h)
 {
     m_Desc.m_Size.x = w; 

@@ -80,12 +80,13 @@ void fxcc::platform::glfw::CallBacks::glfw_close_callback(GLFWwindow* window)
 
 }
 
-void fxcc::platform::glfw::CallBacks::glfw_joystick_callback(int joy, int event)
+void fxcc::platform::glfw::CallBacks::glfw_joystick_callback(int joy, int ev)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(glfwGetCurrentContext()));
     auto app = GetWindow(glfwGetCurrentContext());
     auto& input = app->m_Input;
-    input.JoysticCallback(joy, event);
+    input.JoysticCallback(joy, ev, glfwGetJoystickName(joy));
+
 }
 
 void fxcc::platform::glfw::CallBacks::glfw_window_iconify_callback(GLFWwindow* window, int ev)
