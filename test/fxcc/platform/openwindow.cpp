@@ -31,6 +31,12 @@ using Platform = sdl3::App;
 
 int main()
 {
+    ztclog::setFunction([](const ztclog::Line& l) {
+        
+        std::cout << l.m_Type << " " << l.m_Text << std::endl;
+        });
+    ztclog::start_thread();
+   
     typename fxcc::platform::common::App::Desc desc;
     desc.m_Pos = glm::ivec2(100, 100);
     desc.m_Size = glm::ivec2(800, 600);
