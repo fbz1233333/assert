@@ -12,7 +12,7 @@ sdl2::App::App(const common::App::Desc& desc)
 bool sdl2::App::Init()
 {
     // int SDL
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0) {
         ztclog::warn("Failed to initialize SDL: %s", SDL_GetError());
         return false;
     }
@@ -65,6 +65,105 @@ int sdl2::App::Run()
                 running = false;
             }
             break;
+       
+            case SDL_JOYDEVICEADDED:
+            {
+                int joystickIndex = ev.jdevice.which;
+                SDL_Joystick* joystick = SDL_JoystickOpen(joystickIndex);
+                int numButtons = SDL_JoystickNumButtons(joystick);
+                ztclog::info("Number of buttons: %d\n", numButtons);
+
+                if (joystick) {
+                    m_Joysticks.push_back(joystick);
+                    m_Input.JoysticCallback(joystickIndex, 1, SDL_JoystickName(joystick));
+                }
+
+ 
+
+            }
+            break;
+            case SDL_JOYDEVICEREMOVED:
+            {
+                int joystickIndex = ev.jdevice.which;
+                ztclog::info("Joystick disconnected: %d", joystickIndex);
+                SDL_JoystickClose(m_Joysticks[joystickIndex]);
+                m_Joysticks.erase(m_Joysticks.begin() + joystickIndex);
+                m_Input.JoysticCallback(joystickIndex, 0, 0);
+            }
+            break;
+
+            case SDL_JOYHATMOTION:
+            {
+                int joystickIndex = ev.jhat.which;
+                int hatIndex = ev.jhat.hat;
+                Uint8 hatValue = ev.jhat.value;
+
+                glm::ivec2 direction(0);
+
+                switch (hatValue) {
+                case SDL_HAT_CENTERED:
+                    direction = glm::ivec2(0, 0);
+                    break;
+                case SDL_HAT_UP:
+                    direction = glm::ivec2(0, 1);
+                    break;
+                case SDL_HAT_DOWN:
+                    direction = glm::ivec2(0, -1);
+                    break;
+                case SDL_HAT_LEFT:
+                    direction = glm::ivec2(-1, 0);
+                    break;
+                case SDL_HAT_RIGHT:
+                    direction = glm::ivec2(1, 0);
+                    break;
+                case SDL_HAT_RIGHTUP:
+                    direction = glm::ivec2(1, 1);
+                    break;
+                case SDL_HAT_RIGHTDOWN:
+                    direction = glm::ivec2(1, -1);
+                    break;
+                case SDL_HAT_LEFTUP:
+                    direction = glm::ivec2(-1, 1);
+                    break;
+                case SDL_HAT_LEFTDOWN:
+                    direction = glm::ivec2(-1, -1);
+                    break;
+                default:
+                    break;
+                }
+
+                m_Input.SetJoystickHat(joystickIndex, direction.x, direction.y);
+
+            };
+            break;
+
+            case SDL_JOYAXISMOTION:
+            {
+                int joystickIndex = ev.jaxis.which;
+                int axisIndex = ev.jaxis.axis;
+                int axisValue = ev.jaxis.value;
+                
+                m_Input.SetJoystickAxes(joystickIndex, axisIndex, (float)axisValue / (float)32767);
+            }
+            break;
+
+            case SDL_JOYBUTTONDOWN:
+            {
+                int joystickIndex = ev.jbutton.which;
+                int buttonIndex = ev.jbutton.button;
+                std::cout << "Joystick " << joystickIndex << " button " << buttonIndex << " pressed." << std::endl;
+                m_Input.SetJoystickButton(joystickIndex, CallBacks::m_JoystickMap[buttonIndex], ActionType::Down);
+            }
+            break;
+            case SDL_JOYBUTTONUP:
+            {
+                int joystickIndex = ev.jbutton.which;
+                int buttonIndex = ev.jbutton.button;
+                m_Input.SetJoystickButton(joystickIndex, CallBacks::m_JoystickMap[buttonIndex], ActionType::Up);
+
+            }
+            break;
+
             case SDL_KEYDOWN:
             {
                 int scancode = ev.key.keysym.scancode;
@@ -114,6 +213,10 @@ int sdl2::App::Run()
 
 void sdl2::App::DestroyWindow()
 {
+    for (auto joystick : m_Joysticks) {
+        SDL_JoystickClose(joystick);
+    }
+
     SDL_DestroyWindow(m_SDLwindow);
     SDL_Quit();
 

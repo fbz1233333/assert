@@ -1,3 +1,16 @@
 #pragma once
 
-#include "fxcc/pch.h"
+#include "fxcc/platform/common/pch.h"
+
+namespace fxcc
+{
+	namespace platform
+	{
+		namespace common
+		{
+			struct Mouse
+			{
+			};
+		};
+	};
+};

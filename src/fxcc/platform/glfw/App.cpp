@@ -104,11 +104,23 @@ void fxcc::platform::glfw::App::OnJoystick()
 	{
 		int count;
 		const unsigned char* buttons = glfwGetJoystickButtons(jId, &count);
-		m_Input.SetJoystickStates(jId, count, buttons);
+
+		for (int i = 0; i < count; i++)
+		{
+			if (buttons[i])
+			{
+				printf("%d ", i);
+			}
+		}
+		printf("\n");
 
 		int axesCount;
 		const float* axes = glfwGetJoystickAxes(jId, &axesCount);
-		m_Input.SetJoystickAxes(jId, axesCount, axes);
+
+		for (int i = 0; i < axesCount; i++)
+		{
+			m_Input.SetJoystickAxes(jId, axes[i], axesCount);
+		}
 	}
 	
 };

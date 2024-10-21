@@ -1,4 +1,5 @@
 #include "fxcc/platform/sdl3/Callbacks.h"
+#include <SDL3/SDL.h>
 
 std::unordered_map<int, KeyCode> CallBacks::m_KeyMap =
 {
@@ -71,8 +72,9 @@ std::unordered_map<int, JoystickButton> CallBacks::m_JoystickMap =
     { 3, JoystickButton::Y },
     { 4, JoystickButton::LB },
     { 5, JoystickButton::RB },
-    { 6, JoystickButton::LT },
-    { 7, JoystickButton::RT },
-    { 8, JoystickButton::SELECT },
-    { 9, JoystickButton::START },
+    { 6, JoystickButton::BACK },
+    { 7, JoystickButton::START },
+    { 8, JoystickButton::LSTICK },
+    { 9, JoystickButton::RSTICK },
+    { 10, JoystickButton::CENTER} 
 };

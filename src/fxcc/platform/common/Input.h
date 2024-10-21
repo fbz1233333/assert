@@ -1,99 +1,16 @@
 #pragma once
 
 
-#include "fxcc/pch.h"
+#include "fxcc/platform/common/pch.h"
 #include "fxcc/platform/common/Joystick.h"
 #include "fxcc/platform/common/Mouse.h"
 #include "fxcc/platform/common/Keyboard.h"
 
-enum class KeyCode {
-	UNKNOWN = -1,
-	A,
-	B,
-	C,
-	D,
-	E,
-	F,
-	G,
-	H,
-	I,
-	J,
-	K,
-	L,
-	M,
-	N,
-	O,
-	P,
-	Q,
-	R,
-	S,
-	T,
-	U,
-	V,
-	W,
-	X,
-	Y,
-	Z,
-	NUM0,
-	NUM1,
-	NUM2,
-	NUM3,
-	NUM4,
-	NUM5,
-	NUM6,
-	NUM7,
-	NUM8,
-	NUM9,
-	ESC,
-	ENTER,
-	SPACE,
-	BACKSPACE,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	LEFTALT, 
-	LEFTSHIFT, 
-	LEFTCTRL, 
-	RIGHTALT,
-	RIGHTSHIFT,
-	RIGHTCTRL,
-	COUNT
-};
-
-enum class MouseButton {
-	UNKNOWN = -1,
-	LEFT,
-	RIGHT,
-	MIDDLE,
-	BUTTON1,
-	BUTTON2,
-	COUNT
-};
-enum class JoystickButton {
-	UNKNOWN = -1,
-	A,
-	B,
-	X,
-	Y,
-	LB,
-	RB,
-	LT,
-	RT,
-	SELECT,
-	START,
-	COUNT
-};
-
-enum ActionType
-{
-	Up = 0,
-	Down = 1, 
-};
 
 struct Input
 {
-
+	fxcc::platform::common::Mouse m_Mouse;
+	fxcc::platform::common::Keyboard m_Keyboard;
 
 	std::map<int, Joystick> m_Joysticks;
 	
@@ -116,23 +33,43 @@ struct Input
 
 	std::vector<int> GetJoystickNos();
 	
-	void SetJoystickAxes(const int jId, int count, const float* axes) 
+	void SetJoystickHat(const int jId, int x, int y)
 	{
 		if (m_Joysticks.find(jId) == m_Joysticks.end())
 		{
 			return;
 		}
-		m_Joysticks[jId].SetAxes(count, axes);
+		m_Joysticks[jId].SetHatValue(x, y);
 
 	}
-	void SetJoystickStates(const int jId, int count, const unsigned char* btns)
+
+	void SetJoystickAxes(const int jId, int index, const float value) 
 	{
 		if (m_Joysticks.find(jId) == m_Joysticks.end())
 		{
 			return;
 		}
-		m_Joysticks[jId].SetStates(count, btns);
+		m_Joysticks[jId].SetAxes(index, value);
+
+	}
+	
+	void SetJoystickButton(const int jId, JoystickButton btn, ActionType action)
+	{
+		if (m_Joysticks.find(jId) == m_Joysticks.end())
+		{
+			return;
+		}
+		m_Joysticks[jId].KeyCallback(btn, action);
+
 	};
+	void StepJoystickTick(const int jId, const int count, unsigned char* btn)
+	{
+		if (m_Joysticks.find(jId) == m_Joysticks.end())
+		{
+			return;
+		}
+		m_Joysticks[jId].SetStates(count, btn);
+	}
 
 	void KeyCallback(KeyCode keyCode, ActionType action);
 
@@ -150,5 +87,6 @@ struct Input
 	void MouseCallBack(MouseButton mouse, ActionType action);
 
 	void JoysticCallback(int joy, int event, const char* name);
+
 
 };

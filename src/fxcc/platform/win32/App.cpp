@@ -131,28 +131,76 @@ LRESULT WINAPI fxcc::platform::win32::App::OnWndProj(HWND hWnd, UINT msg, WPARAM
 
 void win32::App::OnJoystick()
 {
-    XINPUT_STATE state;
+    for (DWORD jId = 0; jId < XUSER_MAX_COUNT; ++jId) {
+        XINPUT_STATE state;
+        DWORD result = XInputGetState(jId, &state); 
 
-    ZeroMemory(&state, sizeof(XINPUT_STATE));
+        if (result == ERROR_SUCCESS) {
+            auto& joystick = m_Input.m_Joysticks[jId];
 
-    int jId = 0;
-    DWORD result = XInputGetState(0, &state);
+            glm::vec2 axes[3];
+            m_Input.SetJoystickAxes(jId, 0, (float)state.Gamepad.sThumbLX / (float)32767);
+            m_Input.SetJoystickAxes(jId, 1, (float)state.Gamepad.sThumbLY / (float)32767);
+            m_Input.SetJoystickAxes(jId, 2, (float)state.Gamepad.sThumbRX / (float)32767);
+            m_Input.SetJoystickAxes(jId, 3, (float)state.Gamepad.sThumbRY / (float)32767);
+            m_Input.SetJoystickAxes(jId, 4, (float)state.Gamepad.bLeftTrigger / (float)255);
+            m_Input.SetJoystickAxes(jId, 5, (float)state.Gamepad.bRightTrigger/ (float)255);
 
-    if (result == ERROR_SUCCESS)
-    {
+            glm::ivec2 hatValue(0);
+            if (state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP) {
+                hatValue.y = 1;
+            }
+            if (state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) {
+                hatValue.y = -1;
+            }
+            if (state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) {
+                hatValue.x = -1;
+            }
+            if (state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) {
+                hatValue.x = 1;
+            }
 
-        BYTE leftTrigger = state.Gamepad.bLeftTrigger;
+            m_Input.SetJoystickHat(jId, hatValue.x, hatValue.y);
 
-        if (state.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
-            std::cout << "A Button Pressed!" << std::endl;
+            const int xinputKeys[] =
+            {
+                XINPUT_GAMEPAD_START,
+                XINPUT_GAMEPAD_BACK,
+                XINPUT_GAMEPAD_LEFT_THUMB,
+                XINPUT_GAMEPAD_RIGHT_THUMB,
+                XINPUT_GAMEPAD_LEFT_SHOULDER,
+                XINPUT_GAMEPAD_RIGHT_SHOULDER,
+                XINPUT_GAMEPAD_A,
+                XINPUT_GAMEPAD_B,
+                XINPUT_GAMEPAD_X,
+                XINPUT_GAMEPAD_Y,
+            };
+
+            for (const auto& xinputkey : xinputKeys)
+            {
+                if ((state.Gamepad.wButtons & xinputkey))
+                    m_Input.SetJoystickButton(jId, CallBacks::m_JoystickMap[xinputkey], (ActionType)(state.Gamepad.wButtons & xinputkey));
+            }
+            
         }
-        // -32767~32767
-        //std::cout << state.Gamepad.sThumbLX << std::endl;
     }
-    else
-    {
-        //std::cout << "Control not connected" << std::endl;
-    }
+
+
+
+    //if (result == ERROR_SUCCESS)
+    //{
+    //    BYTE leftTrigger = state.Gamepad.bLeftTrigger;
+
+    //    if (state.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
+    //        std::cout << "A Button Pressed!" << std::endl;
+    //    }
+    //    // -32767~32767
+    //    //std::cout << state.Gamepad.sThumbLX << std::endl;
+    //}
+    //else
+    //{
+    //    //std::cout << "Control not connected" << std::endl;
+    //}
 
 }
 

@@ -77,9 +77,9 @@ std::unordered_map<int, JoystickButton> CallBacks::m_JoystickMap =
     {3, JoystickButton::Y},    
     {4, JoystickButton::LB},   
     {5, JoystickButton::RB},   
-    {6, JoystickButton::LT},   
-    {7, JoystickButton::RT},   
-    {8, JoystickButton::SELECT},
+    {6, JoystickButton::LSTICK},   
+    {7, JoystickButton::RSTICK},   
+    {8, JoystickButton::START},
     {9, JoystickButton::START}  
 };
 

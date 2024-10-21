@@ -67,6 +67,103 @@ int sdl3::App::Run()
                 running = false;
             }
             break;
+
+            case SDL_EVENT_JOYSTICK_ADDED: {
+                int joystickIndex = ev.jdevice.which;
+                SDL_Joystick* joystick = SDL_OpenJoystick(joystickIndex);
+                if (joystick) {
+                    int numButtons = SDL_GetNumJoystickButtons(joystick);
+                    std::cout << "Joystick connected: " << SDL_GetJoystickName(joystick)
+                        << " with " << numButtons << " buttons." << std::endl;
+                    m_Joysticks.push_back(joystick);
+                    m_Input.JoysticCallback(joystickIndex, 1, SDL_GetJoystickName(joystick));
+
+                }
+
+            }; break;
+
+            case SDL_EVENT_JOYSTICK_REMOVED: {
+                int joystickIndex = ev.jdevice.which;
+                std::cout << "Joystick disconnected: " << joystickIndex << std::endl;
+                if (joystickIndex >= 0 && joystickIndex < m_Joysticks.size()) {
+                    SDL_CloseJoystick(m_Joysticks[joystickIndex]);
+                    m_Joysticks.erase(m_Joysticks.begin() + joystickIndex);
+                    m_Input.JoysticCallback(joystickIndex, 0, 0);
+
+                };
+            }; break;
+
+            case SDL_EVENT_JOYSTICK_HAT_MOTION:
+            {
+                int joystickIndex = ev.jhat.which; 
+                int hatIndex = ev.jhat.hat;
+                Uint8 hatValue = ev.jhat.value; 
+
+                glm::ivec2 direction(0);
+
+                switch (hatValue) {
+                case SDL_HAT_CENTERED:
+                    direction = glm::ivec2(0, 0);
+                    break;
+                case SDL_HAT_UP:
+                    direction = glm::ivec2(0, 1);
+                    break;
+                case SDL_HAT_DOWN:
+                    direction = glm::ivec2(0, -1);
+                    break;
+                case SDL_HAT_LEFT:
+                    direction = glm::ivec2(-1, 0);
+                    break;
+                case SDL_HAT_RIGHT:
+                    direction = glm::ivec2(1, 0);
+                    break;
+                case SDL_HAT_RIGHTUP:
+                    direction = glm::ivec2(1, 1);
+                    break;
+                case SDL_HAT_RIGHTDOWN:
+                    direction = glm::ivec2(1, -1);
+                    break;
+                case SDL_HAT_LEFTUP:
+                    direction = glm::ivec2(-1, 1);
+                    break;
+                case SDL_HAT_LEFTDOWN:
+                    direction = glm::ivec2(-1, -1);
+                    break;
+                default:
+                    break;
+                }
+
+                m_Input.SetJoystickHat(joystickIndex, direction.x, direction.y);
+
+            }
+                break;
+            case SDL_EVENT_JOYSTICK_AXIS_MOTION:
+            {
+                int joystickIndex = ev.jaxis.which;
+                int axisIndex = ev.jaxis.axis;
+                int axisValue = ev.jaxis.value;
+
+                m_Input.SetJoystickAxes(joystickIndex, axisIndex, (float)axisValue / (float)32767);
+            }
+            break;
+
+            case SDL_EVENT_JOYSTICK_BUTTON_DOWN:
+            {
+                int joystickIndex = ev.jbutton.which;
+                int buttonIndex = ev.jbutton.button;
+                //std::cout << "Joystick " << joystickIndex << " button " << buttonIndex << " pressed." << std::endl;
+                m_Input.SetJoystickButton(joystickIndex, CallBacks::m_JoystickMap[buttonIndex], ActionType::Down);
+            }
+            break;
+            case SDL_EVENT_JOYSTICK_BUTTON_UP:
+            {
+                int joystickIndex = ev.jbutton.which;
+                int buttonIndex = ev.jbutton.button;
+                //std::cout << "Joystick " << joystickIndex << " button " << buttonIndex << " released." << std::endl;
+                m_Input.SetJoystickButton(joystickIndex, CallBacks::m_JoystickMap[buttonIndex], ActionType::Up);
+
+            }
+            break;
             case SDL_EVENT_KEY_DOWN:
             {
                 int scancode = ev.key.scancode;

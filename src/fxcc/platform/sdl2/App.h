@@ -26,6 +26,9 @@ namespace fxcc
                 SDL_Window* m_SDLwindow;
 
                 SDL_GLContext m_GLcontext;
+
+                std::vector<SDL_Joystick*> m_Joysticks;
+
             };
         };
     };
