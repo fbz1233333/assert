@@ -54,15 +54,6 @@ bool sdl3::App::Init()
 
 int sdl3::App::Run()
 {
- 
-    std::map<int, int> sdlMouseMap =
-    {
-        {SDL_BUTTON_LEFT, Mouse::Button::_btn_left_},
-        {SDL_BUTTON_RIGHT, Mouse::Button::_btn_right_},
-        {SDL_BUTTON_MIDDLE, Mouse::Button::_btn_middle_},
-        {SDL_BUTTON_X1, Mouse::Button::_btn_nearside_},
-        {SDL_BUTTON_X2, Mouse::Button::_btn_farside_}
-    };
 
     bool running = true;
     SDL_Event ev;
@@ -79,20 +70,30 @@ int sdl3::App::Run()
             case SDL_EVENT_KEY_DOWN:
             {
                 int scancode = ev.key.scancode;
-                m_Input.KeyCallback(scancode, 1);
+                KeyCode keyCode = CallBacks::m_KeyMap[scancode];
+                if (ev.key.key == SDLK_RSHIFT)
+                {
+                    keyCode == KeyCode::RIGHTSHIFT;
+                }
+                m_Input.KeyCallback(keyCode, ActionType::Down);
             }
             break;
             case SDL_EVENT_KEY_UP:
             {
                 int scancode = ev.key.scancode;
-                m_Input.KeyCallback(scancode, 0);
+                KeyCode keyCode = CallBacks::m_KeyMap[scancode];
+                if (ev.key.key == SDLK_RSHIFT)
+                {
+                    keyCode == KeyCode::RIGHTSHIFT;
+                }
+                m_Input.KeyCallback(keyCode, ActionType::Up);
             }
             break;
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 1);
+                m_Input.MouseCallBack(CallBacks::m_MouseMap[ev.button.button], ActionType::Down);
                 break;
             case SDL_EVENT_MOUSE_BUTTON_UP:
-                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 0);
+                m_Input.MouseCallBack(CallBacks::m_MouseMap[ev.button.button], ActionType::Up);
                 break;
             case SDL_EVENT_MOUSE_MOTION:
             {

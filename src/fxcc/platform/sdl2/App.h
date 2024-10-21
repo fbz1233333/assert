@@ -19,7 +19,7 @@ namespace fxcc
 
                 int Run();
 
-                virtual void OnDestory();
+                void DestroyWindow();
 
             private:
 

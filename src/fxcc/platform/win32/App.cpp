@@ -67,7 +67,7 @@ bool fxcc::platform::win32::App::InitWindow()
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, fxcc::platform::win32::CallBacks::WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, m_lpClassName, nullptr };
     ::RegisterClassExW(&wc);
 
-    m_wnd = ::CreateWindowW(wc.lpszClassName, m_Desc.GetTitleW().c_str(), WS_OVERLAPPEDWINDOW,
+    m_wnd = ::CreateWindowW(wc.lpszClassName, m_Desc.GetTitleW().c_str(), WS_OVERLAPPEDWINDOW ,
         m_Desc.m_Pos.x, m_Desc.m_Pos.y, m_Desc.m_Size.x, m_Desc.m_Size.y, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Show the window
@@ -88,6 +88,8 @@ LRESULT WINAPI fxcc::platform::win32::App::OnWndProj(HWND hWnd, UINT msg, WPARAM
     case WM_XBUTTONUP:
     case WM_LBUTTONDOWN:
     case WM_LBUTTONUP:
+    case WM_MBUTTONDOWN:
+    case WM_MBUTTONUP:
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:
     case WM_MOUSEMOVE:
@@ -145,26 +147,28 @@ void win32::App::OnJoystick()
             std::cout << "A Button Pressed!" << std::endl;
         }
         // -32767~32767
-        std::cout << state.Gamepad.sThumbLX << std::endl;
+        //std::cout << state.Gamepad.sThumbLX << std::endl;
     }
     else
     {
-        std::cout << "Control not connected" << std::endl;
+        //std::cout << "Control not connected" << std::endl;
     }
 
 }
 
 void fxcc::platform::win32::App::HandleMouseInput(UINT msg, WPARAM wParam, LPARAM lParam)
 {
+
     switch (msg)
     {
+        
     case WM_XBUTTONDOWN:
     {
         if (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) {
-            m_Input.MouseCallBack(Mouse::Button::_btn_nearside_, 1);
+            m_Input.MouseCallBack(MouseButton::BUTTON1, ActionType::Down);
         }
         else if (GET_XBUTTON_WPARAM(wParam) == XBUTTON2) {
-            m_Input.MouseCallBack(Mouse::Button::_btn_farside_, 1);
+            m_Input.MouseCallBack(MouseButton::BUTTON2, ActionType::Down);
         }
     }
     break;
@@ -172,31 +176,41 @@ void fxcc::platform::win32::App::HandleMouseInput(UINT msg, WPARAM wParam, LPARA
     case WM_XBUTTONUP:
         if (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) {
             //Button1 is the button near me
-            m_Input.MouseCallBack(Mouse::Button::_btn_nearside_, 0);
+            m_Input.MouseCallBack(MouseButton::BUTTON1, ActionType::Up);
         }
         else if (GET_XBUTTON_WPARAM(wParam) == XBUTTON2) {
-            m_Input.MouseCallBack(Mouse::Button::_btn_farside_, 0);
+            m_Input.MouseCallBack(MouseButton::BUTTON2, ActionType::Up);
         }
         break;
     case WM_LBUTTONDOWN:
     {
-        m_Input.MouseCallBack(Mouse::Button::_btn_left_, 1);
+        m_Input.MouseCallBack(MouseButton::LEFT, ActionType::Down);
     };
     break;
     case WM_LBUTTONUP:
     {
-        m_Input.MouseCallBack(Mouse::Button::_btn_left_, 0);
+        m_Input.MouseCallBack(MouseButton::LEFT, ActionType::Up);
     };
     break;
     case WM_RBUTTONDOWN:
     {
-        m_Input.MouseCallBack(Mouse::Button::_btn_right_, 1);
+        m_Input.MouseCallBack(MouseButton::RIGHT, ActionType::Down);
     };
     break;
     case WM_RBUTTONUP:
     {
-        m_Input.MouseCallBack(Mouse::Button::_btn_right_, 0);
+        m_Input.MouseCallBack(MouseButton::RIGHT, ActionType::Up);
     };
+    break;
+    case WM_MBUTTONDOWN:
+    {
+        m_Input.MouseCallBack(MouseButton::MIDDLE, ActionType::Down);
+    }
+    break;
+    case WM_MBUTTONUP:
+    {
+        m_Input.MouseCallBack(MouseButton::MIDDLE, ActionType::Up);
+    }
     break;
     case WM_MOUSEMOVE:
     {
@@ -228,14 +242,25 @@ void fxcc::platform::win32::App::HandleKeyInput(UINT msg, WPARAM wParam, LPARAM 
     case WM_KEYDOWN:
     {
         int scancode = (lParam & 0x00FF0000) >> 16;
-        m_Input.KeyCallback(scancode, 1);
+        KeyCode keyCode = CallBacks::m_KeyMap[scancode];
+        if (keyCode == KeyCode::LEFTCTRL && wParam == VK_RSHIFT)
+        {
+            keyCode = KeyCode::RIGHTCTRL;
+        }
+        m_Input.KeyCallback(keyCode, ActionType::Down);
+        
     }
     break;
     case WM_SYSKEYUP:
     case WM_KEYUP:
     {
         int scancode = (lParam & 0x00FF0000) >> 16;
-        m_Input.KeyCallback(scancode, 0);
+        KeyCode keyCode = CallBacks::m_KeyMap[scancode];
+        if (keyCode == KeyCode::LEFTCTRL && wParam == VK_RSHIFT)
+        {
+            keyCode = KeyCode::RIGHTCTRL;
+        }
+        m_Input.KeyCallback(keyCode, ActionType::Up);
     }
     break;
     default:

@@ -5,6 +5,83 @@ using namespace fxcc::platform::glfw;
 
 std::unordered_map<GLFWwindow*, struct App*> CallBacks::m_Apps;
 
+std::unordered_map<int, KeyCode> CallBacks::m_KeyMap = 
+{
+    {GLFW_KEY_A, KeyCode::A},
+    {GLFW_KEY_B, KeyCode::B},
+    {GLFW_KEY_C, KeyCode::C},
+    {GLFW_KEY_D, KeyCode::D},
+    {GLFW_KEY_E, KeyCode::E},
+    {GLFW_KEY_F, KeyCode::F},
+    {GLFW_KEY_G, KeyCode::G},
+    {GLFW_KEY_H, KeyCode::H},
+    {GLFW_KEY_I, KeyCode::I},
+    {GLFW_KEY_J, KeyCode::J},
+    {GLFW_KEY_K, KeyCode::K},
+    {GLFW_KEY_L, KeyCode::L},
+    {GLFW_KEY_M, KeyCode::M},
+    {GLFW_KEY_N, KeyCode::N},
+    {GLFW_KEY_O, KeyCode::O},
+    {GLFW_KEY_P, KeyCode::P},
+    {GLFW_KEY_Q, KeyCode::Q},
+    {GLFW_KEY_R, KeyCode::R},
+    {GLFW_KEY_S, KeyCode::S},
+    {GLFW_KEY_T, KeyCode::T},
+    {GLFW_KEY_U, KeyCode::U},
+    {GLFW_KEY_V, KeyCode::V},
+    {GLFW_KEY_W, KeyCode::W},
+    {GLFW_KEY_X, KeyCode::X},
+    {GLFW_KEY_Y, KeyCode::Y},
+    {GLFW_KEY_Z, KeyCode::Z},
+    {GLFW_KEY_0, KeyCode::NUM0},
+    {GLFW_KEY_1, KeyCode::NUM1},
+    {GLFW_KEY_2, KeyCode::NUM2},
+    {GLFW_KEY_3, KeyCode::NUM3},
+    {GLFW_KEY_4, KeyCode::NUM4},
+    {GLFW_KEY_5, KeyCode::NUM5},
+    {GLFW_KEY_6, KeyCode::NUM6},
+    {GLFW_KEY_7, KeyCode::NUM7},
+    {GLFW_KEY_8, KeyCode::NUM8},
+    {GLFW_KEY_9, KeyCode::NUM9},
+    {GLFW_KEY_ESCAPE, KeyCode::ESC},
+    {GLFW_KEY_ENTER, KeyCode::ENTER},
+    {GLFW_KEY_SPACE, KeyCode::SPACE},
+    {GLFW_KEY_BACKSPACE, KeyCode::BACKSPACE},
+    {GLFW_KEY_LEFT, KeyCode::LEFT},
+    {GLFW_KEY_RIGHT, KeyCode::RIGHT},
+    {GLFW_KEY_UP, KeyCode::UP},
+    {GLFW_KEY_DOWN, KeyCode::DOWN},
+    {GLFW_KEY_LEFT_ALT, KeyCode::LEFTALT}, 
+    {GLFW_KEY_RIGHT_ALT, KeyCode::RIGHTALT}, 
+    {GLFW_KEY_LEFT_SHIFT, KeyCode::LEFTSHIFT}, 
+    {GLFW_KEY_RIGHT_SHIFT, KeyCode::RIGHTSHIFT},  
+    {GLFW_KEY_LEFT_CONTROL, KeyCode::LEFTCTRL}, 
+    {GLFW_KEY_RIGHT_CONTROL, KeyCode::RIGHTCTRL}  
+
+};
+
+std::unordered_map<int, MouseButton> CallBacks::m_MouseMap =
+{
+    {GLFW_MOUSE_BUTTON_1, MouseButton::LEFT},
+    {GLFW_MOUSE_BUTTON_2, MouseButton::RIGHT},
+    {GLFW_MOUSE_BUTTON_3, MouseButton::MIDDLE},   
+    {GLFW_MOUSE_BUTTON_4, MouseButton::BUTTON1},  
+    {GLFW_MOUSE_BUTTON_5, MouseButton::BUTTON2},  
+};
+
+std::unordered_map<int, JoystickButton> CallBacks::m_JoystickMap =
+{
+    {0, JoystickButton::A},    
+    {1, JoystickButton::B},    
+    {2, JoystickButton::X},    
+    {3, JoystickButton::Y},    
+    {4, JoystickButton::LB},   
+    {5, JoystickButton::RB},   
+    {6, JoystickButton::LT},   
+    {7, JoystickButton::RT},   
+    {8, JoystickButton::SELECT},
+    {9, JoystickButton::START}  
+};
 
 void fxcc::platform::glfw::CallBacks::Register(App* app)
 {
@@ -26,12 +103,15 @@ void fxcc::platform::glfw::CallBacks::glfw_error_callback(int error, const char*
 {
     ztclog::error("Glfw Error %d: %s\n", error, description);
 }
+
 void fxcc::platform::glfw::CallBacks::glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
     auto app = GetWindow(window);
     auto& input = app->m_Input;
-    input.KeyCallback(scancode, action);
+
+    ztclog::info("key %d", key);
+    input.KeyCallback(m_KeyMap[key], (ActionType)action);
 
 }
 void fxcc::platform::glfw::CallBacks::glfw_cursorpos_callback(GLFWwindow* window, double x, double y)
@@ -49,7 +129,7 @@ void fxcc::platform::glfw::CallBacks::glfw_mouse_callback(GLFWwindow* window, in
     FXCC_BUILD_PLATFORM_GLFW_BREAK(HasWindow(window));
     auto app = GetWindow(window);
     auto& input = app->m_Input;
-    input.MouseCallBack(key, action);
+    input.MouseCallBack(m_MouseMap[key], (ActionType)action);
 }
 void fxcc::platform::glfw::CallBacks::glfw_frame_callback(GLFWwindow* window, int width, int height)
 {

@@ -12,7 +12,7 @@ sdl2::App::App(const common::App::Desc& desc)
 bool sdl2::App::Init()
 {
     // int SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
         ztclog::warn("Failed to initialize SDL: %s", SDL_GetError());
         return false;
     }
@@ -51,14 +51,6 @@ bool sdl2::App::Init()
 
 int sdl2::App::Run()
 {
-    std::map<int, int> sdlMouseMap =
-    {
-        {SDL_BUTTON_LEFT, Mouse::Button::_btn_left_},
-        {SDL_BUTTON_RIGHT, Mouse::Button::_btn_right_},
-        {SDL_BUTTON_MIDDLE, Mouse::Button::_btn_middle_},
-        {SDL_BUTTON_X1, Mouse::Button::_btn_nearside_},
-        {SDL_BUTTON_X2, Mouse::Button::_btn_farside_}
-    };
 
     bool running = true;
     SDL_Event ev;
@@ -76,20 +68,20 @@ int sdl2::App::Run()
             case SDL_KEYDOWN:
             {
                 int scancode = ev.key.keysym.scancode;
-                m_Input.KeyCallback(scancode, 1);
+                m_Input.KeyCallback(CallBacks::m_KeyMap[scancode], ActionType::Down);
             }
             break;
             case SDL_KEYUP:
             {
                 int scancode = ev.key.keysym.scancode;
-                m_Input.KeyCallback(scancode, 0);
+                m_Input.KeyCallback(CallBacks::m_KeyMap[scancode], ActionType::Up);
             }
             break;
             case SDL_MOUSEBUTTONDOWN:
-                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 1);
+                m_Input.MouseCallBack(CallBacks::m_MouseMap[ev.button.button], ActionType::Down);
                 break;
-            case SDL_MOUSEBUTTONUP: 
-                m_Input.MouseCallBack(sdlMouseMap[ev.button.button], 0);
+            case SDL_MOUSEBUTTONUP:
+                m_Input.MouseCallBack(CallBacks::m_MouseMap[ev.button.button], ActionType::Up);
                 break;
             case SDL_MOUSEMOTION:
             {
@@ -98,26 +90,29 @@ int sdl2::App::Run()
                 y = ev.motion.y;
                 m_Input.CursorPos(x, y);
             }
-        
-                break;
+
+            break;
             case SDL_MOUSEWHEEL:
             {
                 m_Input.Scroll(ev.wheel.x, ev.wheel.y);
             }
-                break;
-
+            break;
             default:
                 break;
 
             }
-        }
+        };
+
+        //int numJoysticks = SDL_NumJoysticks();
+        //ztclog::info("num Joysticks %d", numJoysticks);
+
     };
 
-    OnDestory();
+    DestroyWindow();
     return 0;
 }
 
-void sdl2::App::OnDestory()
+void sdl2::App::DestroyWindow()
 {
     SDL_DestroyWindow(m_SDLwindow);
     SDL_Quit();

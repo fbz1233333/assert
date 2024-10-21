@@ -12,6 +12,13 @@ namespace fxcc
         {
             struct CallBacks
             {
+                
+                static std::unordered_map<int, KeyCode> m_KeyMap;
+
+                static std::unordered_map<int, MouseButton> m_MouseMap;
+                
+                static std::unordered_map<int, JoystickButton> m_JoystickMap;
+
                 static std::unordered_map<GLFWwindow*, struct App*> m_Apps;
 
                 static void Register(struct App* app);
