@@ -1,1 +1,1 @@
-git add . && git commit -m "ss" && git push -u origin dev
+git add . && git commit -m "ss" && git push origin dev
