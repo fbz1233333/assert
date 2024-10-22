@@ -25,9 +25,7 @@ include_directories(${CMAKE_BINARY_DIR}/_deps/SDL3/include)
 link_directories(${CMAKE_SOURCE_DIR}/_deps/glfw/lib)
 endif()
 
-if(WIN32)
 set(FXCC_BUILD_GRAPH_OPENGL3 ON)
-endif()
 set(FXCC_BUILD_GRAPH_DIRECTX11 ON)
 
 set(FXCC_BUILD_PLATFORM_GLFW ON)

@@ -8,7 +8,6 @@
 
 #if __linux__
 #include <GLES3/gl3.h>
-#include <GL/gl.h>
 #endif
 
 #define FXCC_BUILD_GRAPH_OPENGL3_FAILED(x) if(!x) return false
